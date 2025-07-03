@@ -31,7 +31,6 @@ async function initialize() {
     currentQuestionIndex = 0;
 
     updateMetadataDisplay(currentQuestionIndex, packetData);
-    showQuestion(currentQuestionIndex);
     enableButtons(true);
 }
 function showQuestion(index) {
@@ -169,6 +168,8 @@ function updateDisplayedText(sentence, spokenWords) {
 
 function readCurrentQuestion() {
     if (reading) return;
+    
+    updateMetadataDisplay(currentQuestionIndex, packetData);
 
     sentences = splitIntoSentences(questions[currentIndex].questionText);
     currentSentenceIndex = 0;
