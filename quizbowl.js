@@ -78,44 +78,33 @@ async function loadPacket(url) {
 
     // Parse each question block
     const parsedQuestions = rawQuestions.map(raw => {
-        // Split lines for each block
         const lines = raw.split(/\r?\n/);
 
-        // Find line starting with ANSWER:
         const answerIndex = lines.findIndex(line => line.toUpperCase().startsWith('ANSWER:'));
 
         if (answerIndex === -1) {
-            // No answer line found, skip
             return null;
         }
 
-        // Question lines: from start to answerIndex - 1
+        // Extract question lines
         const questionLines = lines.slice(0, answerIndex);
-
-        // Join question lines, remove leading question number if present (like "(1)")
-        // Try to match something like "(4)" or "4." at the start
         let fullText = questionLines.join(' ').trim();
 
         let numberMatch = fullText.match(/^\(?(\d+)[\).]?\s*/);
         let questionNumber = numberMatch ? parseInt(numberMatch[1]) : null;
 
-        // Remove the number prefix from the text
         let questionText = fullText.replace(/^\(?\d+[\).]?\s*/, '').trim();
+
+        // Extract answer text BEFORE returning
+        const answerText = lines[answerIndex].replace(/^ANSWER:\s*/i, '').trim();
+
         return {
             questionText,
             answer: answerText,
             number: questionNumber
         };
-
-
-        // Answer lines: from answerIndex to end
-        const answerText = lines.slice(answerIndex)[0].replace(/^ANSWER:\s*/i, '').trim();
-
-        return {
-            questionText,
-            answer: answerText
-        };
     }).filter(q => q !== null);
+    
 
     return { category, year, level, round, questions: parsedQuestions };
 }
