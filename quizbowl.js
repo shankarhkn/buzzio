@@ -59,7 +59,7 @@ const startReadingBtn = document.getElementById('startReadingBtn');
 const nextBtn = document.getElementById('nextBtn');
 const repeatBtn = document.getElementById('repeatBtn');
 const speedSlider = document.getElementById('speedSlider');
-const speedDisplay = document.getElementById('speedDisplay');
+const speedDisplay = document.getElementById('speedValue');
 const metaElem = document.getElementById('metadata'); // new element to show metadata
 
 async function loadPacket(url) {
