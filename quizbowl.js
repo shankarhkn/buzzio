@@ -46,8 +46,10 @@ function stopSpeaking() {
 
 function showQuestion(index) {
     const q = questions[index];
-    document.getElementById('questionText').textContent = q.questionText;
-    document.getElementById('result').textContent = '';
+    const questionElem = document.getElementById('questionText');
+    const resultElem = document.getElementById('result');
+    if (questionElem) questionElem.textContent = q.questionText;
+    if (resultElem) resultElem.textContent = '';
 }
 
 function startRecognition() {
@@ -71,7 +73,8 @@ function onBuzz() {
     recognition = startRecognition();
     if (!recognition) return;
 
-    document.getElementById('result').textContent = 'Listening for your answer...';
+    const resultElem = document.getElementById('result');
+    if (resultElem) resultElem.textContent = 'Listening for your answer...';
 
     recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
@@ -79,12 +82,12 @@ function onBuzz() {
     };
 
     recognition.onerror = (event) => {
-        document.getElementById('result').textContent = 'Speech recognition error: ' + event.error;
+        if (resultElem) resultElem.textContent = 'Speech recognition error: ' + event.error;
     };
 
     recognition.onend = () => {
-        if (document.getElementById('result').textContent === 'Listening for your answer...') {
-            document.getElementById('result').textContent = 'No answer detected. Try buzzing again.';
+        if (resultElem && resultElem.textContent === 'Listening for your answer...') {
+            resultElem.textContent = 'No answer detected. Try buzzing again.';
         }
     };
 
@@ -99,8 +102,11 @@ function handleAnswer(answerText) {
 
     const isCorrect = checkAnswer(userAnswer, correctAnswer);
 
-    document.getElementById('result').textContent =
-        `You answered: "${answerText}". That is ${isCorrect ? 'correct!' : 'incorrect.'}`;
+    const resultElem = document.getElementById('result');
+    if (resultElem) {
+        resultElem.textContent =
+            `You answered: "${answerText}". That is ${isCorrect ? 'correct!' : 'incorrect.'}`;
+    }
 }
 
 function checkAnswer(userAnswer, correctAnswer) {
@@ -126,7 +132,7 @@ function readCurrentQuestion() {
     });
 }
 
-// Keyboard buzz detection
+// Keyboard buzz detection (spacebar)
 window.addEventListener('keydown', (e) => {
     if (e.code === 'Space') {
         e.preventDefault();
@@ -134,17 +140,17 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-// Button event listeners
+// Initialization
 window.onload = async () => {
     questions = await loadPacket('packet.txt');
     if (questions.length === 0) {
-        document.getElementById('questionText').textContent = 'No questions loaded.';
+        const questionElem = document.getElementById('questionText');
+        if (questionElem) questionElem.textContent = 'No questions loaded.';
         return;
     }
 
     showQuestion(currentIndex);
 
-    // Wait for interaction before speaking
     document.getElementById('nextBtn').addEventListener('click', () => {
         nextQuestion();
     });
@@ -153,7 +159,7 @@ window.onload = async () => {
         if (!reading) readCurrentQuestion();
     });
 
-    // Add a "Start Reading" button to trigger TTS
+    // Add a "Start Reading" button to trigger TTS on user gesture (some browsers require interaction)
     const startButton = document.createElement('button');
     startButton.textContent = "Start Reading";
     startButton.style.marginTop = "20px";

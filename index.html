@@ -4,25 +4,51 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Quizbowl Reader</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Buzzio - Quizbowl TTS & Buzz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        #questionText {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        #result {
+            margin-top: 15px;
+            color: darkblue;
+            min-height: 24px;
+        }
+
+        button {
+            margin-right: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Quizbowl Reader</h1>
-        <div id="questionText" class="question">Loading questions...</div>
-        <div id="result" class="result"></div>
-        <div class="controls">
-            <button id="nextBtn">Next Question</button>
-            <button id="repeatBtn">Repeat Question</button>
-        </div>
-        <div class="instructions">
-            <p>Press <strong>Spacebar</strong> to buzz and answer verbally.</p>
-        </div>
+
+    <h1>Buzzio</h1>
+    <div id="questionText">Loading questions...</div>
+    <div id="result"></div>
+
+    <div class="controls">
+        <button id="nextBtn">Next Question</button>
+        <button id="repeatBtn">Repeat Question</button>
     </div>
 
     <script src="quizbowl.js"></script>
+
 </body>
 
 </html>
