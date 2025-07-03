@@ -1,149 +1,130 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f7fa;
-    color: #222;
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
     margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-    align-items: center;
+    padding: 0;
 }
 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+    color: #111827;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* Container */
 .container {
     max-width: 700px;
     width: 100%;
-    background: white;
-    padding: 30px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease-in-out;
     text-align: center;
 }
 
+/* Title */
 h1 {
-    margin-bottom: 20px;
+    font-size: 2rem;
     font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 24px;
 }
 
-.question {
-    font-size: 1.3em;
-    margin-bottom: 20px;
+/* Question Text */
+#questionText {
+    font-size: 1.25rem;
+    line-height: 1.6;
     min-height: 120px;
-    opacity: 1;
-    transition: opacity 0.5s ease;
+    margin-bottom: 24px;
+    word-wrap: break-word;
 }
 
-.question.fade-out {
-    opacity: 0;
-}
-
-.question.fade-in {
-    opacity: 1;
-}
-
-.result {
-    font-size: 1.1em;
-    margin-top: 20px;
-    min-height: 50px;
-    color: #333;
-    font-weight: bold;
-    min-height: 48px;
-}
-
-.status {
-    margin-top: 15px;
+/* Result message */
+#result {
+    font-size: 1.1rem;
+    min-height: 40px;
+    margin-bottom: 20px;
     font-weight: 600;
-    font-size: 1.1em;
-    min-height: 28px;
-    user-select: none;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
 }
 
-.status.idle {
-    color: gray;
-}
-
-.status.reading {
-    color: #007bff;
-}
-
-.status.listening {
-    color: #d9534f;
-}
-
-.controls {
-    margin-top: 25px;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-button {
-    background-color: #007bff;
-    border: none;
-    padding: 12px 25px;
-    color: white;
-    font-size: 1em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    user-select: none;
-}
-
-button:hover:not(:disabled) {
-    background-color: #0056b3;
-}
-
-button:disabled {
-    background-color: #9bbff9;
-    cursor: not-allowed;
-}
-
-.buzz-btn {
-    background-color: #d9534f;
-}
-
-.buzz-btn:hover:not(:disabled) {
-    background-color: #b52b27;
-}
-
-.instructions {
-    margin-top: 30px;
-    font-style: italic;
-    color: #555;
-}
-
-.highlighted {
-    color: #007bff;
-    font-weight: 700;
-}
-
-.hidden-word {
-    color: transparent;
-    user-select: none;
-}
-
-/* Result message colors */
 .correct {
-    color: green;
-    font-weight: bold;
+    color: #16a34a;
 }
 
 .incorrect {
-    color: red;
-    font-weight: bold;
+    color: #dc2626;
 }
 
 .listening {
-    color: orange;
-}
-
-.error {
-    color: red;
-    font-weight: bold;
+    color: #f59e0b;
 }
 
 .warning {
-    color: #cc6600;
+    color: #d97706;
+}
+
+.error {
+    color: #b91c1c;
+}
+
+/* Buttons */
+button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    margin: 0 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1e40af;
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Word-by-word sync display */
+#questionText span {
+    opacity: 0.15;
+    transition: opacity 0.1s ease;
+}
+
+#questionText span.visible {
+    opacity: 1;
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+/* Optional: fade-in animation */
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

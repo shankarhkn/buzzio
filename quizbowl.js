@@ -2,25 +2,7 @@ let questions = [];
 let currentIndex = 0;
 let reading = false;
 let recognition = null;
-let currentUtterance = null;
-
-const questionElem = document.getElementById('questionText');
-const resultElem = document.getElementById('result');
-
-function clearQuestionDisplay() {
-    if (questionElem) questionElem.textContent = '';
-}
-
-function showQuestionWords(words, highlightIndex = -1) {
-    if (!questionElem) return;
-    questionElem.innerHTML = words
-        .map((w, i) =>
-            i <= highlightIndex
-                ? `<span class="highlighted">${w}</span>`
-                : `<span class="hidden-word">${w}</span>`
-        )
-        .join(' ');
-}
+let wordSpans = [];
 
 async function loadPacket(url) {
     try {
@@ -44,54 +26,59 @@ async function loadPacket(url) {
     }
 }
 
-function setStatus(text, className) {
-    if (!resultElem) return;
-    resultElem.textContent = text;
-    resultElem.className = className || '';
+function showQuestion(index) {
+    const q = questions[index];
+    const questionElem = document.getElementById('questionText');
+    const resultElem = document.getElementById('result');
+    resultElem.textContent = '';
+
+    if (!questionElem) return;
+
+    questionElem.innerHTML = '';
+    const words = q.questionText.split(/\s+/);
+    wordSpans = words.map((word, i) => {
+        const span = document.createElement('span');
+        span.textContent = word + ' ';
+        questionElem.appendChild(span);
+        return span;
+    });
 }
 
-function speakWithSync(text, onEnd) {
+function speakWordByWord(text, onEnd) {
     if (!('speechSynthesis' in window)) {
         alert('Text-to-speech not supported in your browser.');
-        setStatus('Idle', 'idle');
         return;
     }
 
-    stopSpeaking();
-
     const words = text.split(/\s+/);
-    let wordCount = 0;
+    let index = 0;
 
-    currentUtterance = new SpeechSynthesisUtterance(text);
-    currentUtterance.lang = 'en-US';
-
-    clearQuestionDisplay();
-
-    currentUtterance.onboundary = (event) => {
-        if (event.name === 'word') {
-            // increment word count on each boundary event
-            wordCount++;
-            showQuestionWords(words, wordCount - 1);
+    const speakNext = () => {
+        if (index >= words.length) {
+            reading = false;
+            if (onEnd) onEnd();
+            return;
         }
-    };
 
-    currentUtterance.onend = () => {
-        reading = false;
-        setStatus('Idle', 'idle');
-        showQuestionWords(words, words.length - 1);
-        if (onEnd) onEnd();
-    };
+        const word = words[index];
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = 'en-US';
 
-    currentUtterance.onerror = () => {
-        reading = false;
-        setStatus('Idle', 'idle');
-        showQuestionWords(words, words.length - 1);
-        if (onEnd) onEnd();
+        // Highlight the word
+        wordSpans.forEach((span, i) => {
+            span.classList.toggle('visible', i === index);
+        });
+
+        utterance.onend = () => {
+            index++;
+            speakNext();
+        };
+
+        speechSynthesis.speak(utterance);
     };
 
     reading = true;
-    setStatus('Reading question...', 'reading');
-    speechSynthesis.speak(currentUtterance);
+    speakNext();
 }
 
 function stopSpeaking() {
@@ -99,24 +86,6 @@ function stopSpeaking() {
         speechSynthesis.cancel();
     }
     reading = false;
-    setStatus('Idle', 'idle');
-    if (questions[currentIndex]) {
-        showQuestionWords(questions[currentIndex].questionText.split(/\s+/), -1);
-    }
-}
-
-function showQuestion(index) {
-    if (!questions[index]) return;
-    clearQuestionDisplay();
-    setStatus('', '');
-}
-
-function readCurrentQuestion() {
-    if (!questions[currentIndex]) return;
-    speakWithSync(questions[currentIndex].questionText, () => {
-        reading = false;
-        setStatus('Idle', 'idle');
-    });
 }
 
 function startRecognition() {
@@ -133,14 +102,16 @@ function startRecognition() {
 }
 
 function onBuzz() {
-    if (!reading) return; // Only allow buzz if reading question
+    if (!reading) return; // Only buzz during reading
 
     stopSpeaking();
 
     recognition = startRecognition();
     if (!recognition) return;
 
-    setStatus('Listening for your answer...', 'listening');
+    const resultElem = document.getElementById('result');
+    resultElem.textContent = 'Listening for your answer...';
+    resultElem.className = 'listening';
 
     recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
@@ -148,12 +119,14 @@ function onBuzz() {
     };
 
     recognition.onerror = (event) => {
-        setStatus('Speech recognition error: ' + event.error, 'error');
+        resultElem.textContent = 'Speech recognition error: ' + event.error;
+        resultElem.className = 'error';
     };
 
     recognition.onend = () => {
         if (resultElem.textContent === 'Listening for your answer...') {
-            setStatus('No answer detected. Try buzzing again.', 'warning');
+            resultElem.textContent = 'No answer detected. Try buzzing again.';
+            resultElem.className = 'warning';
         }
     };
 
@@ -163,35 +136,40 @@ function onBuzz() {
 function handleAnswer(answerText) {
     if (recognition) recognition.stop();
 
-    const correctAnswer = questions[currentIndex].answer.toLowerCase().trim();
-    const userAnswer = answerText.toLowerCase().trim();
+    const correctAnswer = questions[currentIndex].answer.toLowerCase();
+    const userAnswer = answerText.toLowerCase();
 
     const isCorrect = checkAnswer(userAnswer, correctAnswer);
 
-    if (isCorrect) {
-        setStatus(`You answered: "${answerText}". That is correct!`, 'correct');
-    } else {
-        setStatus(
-            `You answered: "${answerText}". That is incorrect. Correct answer: "${questions[currentIndex].answer}"`,
-            'incorrect'
-        );
+    const resultElem = document.getElementById('result');
+    if (resultElem) {
+        resultElem.innerHTML =
+            `You answered: "<strong>${answerText}</strong>".<br>` +
+            (isCorrect
+                ? `<span class="correct">That is correct!</span>`
+                : `<span class="incorrect">That is incorrect.</span> The correct answer was: <strong>${questions[currentIndex].answer}</strong>.`);
+        resultElem.className = isCorrect ? 'correct' : 'incorrect';
     }
 }
 
 function checkAnswer(userAnswer, correctAnswer) {
-    // Basic contains check or exact match - can improve with fuzzy matching
     return userAnswer.includes(correctAnswer) || correctAnswer.includes(userAnswer);
 }
 
 function nextQuestion() {
-    if (reading) stopSpeaking();
+    stopSpeaking();
 
     currentIndex++;
     if (currentIndex >= questions.length) {
-        currentIndex = 0; // loop back to start
+        currentIndex = 0;
     }
     showQuestion(currentIndex);
     readCurrentQuestion();
+}
+
+function readCurrentQuestion() {
+    const q = questions[currentIndex];
+    speakWordByWord(q.questionText);
 }
 
 // Keyboard buzz detection (spacebar)
@@ -202,15 +180,19 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-// Initialization
+// Init
 window.onload = async () => {
     questions = await loadPacket('packet.txt');
     if (questions.length === 0) {
-        if (questionElem) questionElem.textContent = 'No questions loaded.';
+        document.getElementById('questionText').textContent = 'No questions loaded.';
         return;
     }
 
     showQuestion(currentIndex);
+
+    document.getElementById('startBtn').addEventListener('click', () => {
+        if (!reading) readCurrentQuestion();
+    });
 
     document.getElementById('nextBtn').addEventListener('click', () => {
         nextQuestion();
@@ -220,13 +202,7 @@ window.onload = async () => {
         if (!reading) readCurrentQuestion();
     });
 
-    // Add a "Start Reading" button to trigger TTS on user gesture (some browsers require interaction)
-    const startButton = document.createElement('button');
-    startButton.textContent = "Start Reading";
-    startButton.style.marginTop = "20px";
-    startButton.onclick = () => {
-        readCurrentQuestion();
-        startButton.remove();
-    };
-    document.querySelector('.controls').appendChild(startButton);
+    document.getElementById('buzzBtn').addEventListener('click', () => {
+        onBuzz();
+    });
 };
