@@ -41,10 +41,13 @@ function showQuestion(index) {
     }
 
     questionElem.textContent = '';  // Empty until spoken
-    resultElem.textContent = '';    // Clear any previous result
+    resultElem.textContent = '';
     displayedText = '';
     sentences = splitIntoSentences(question.questionText);
     currentSentenceIndex = 0;
+
+    // Update currentQuestionIndex so everything stays in sync
+    currentQuestionIndex = index;
 }
 
   
@@ -172,10 +175,10 @@ function updateDisplayedText(sentence, spokenWords) {
 
 function readCurrentQuestion() {
     if (reading) return;
-    
+
     updateMetadataDisplay(currentQuestionIndex, packetData);
 
-    sentences = splitIntoSentences(questions[currentIndex].questionText);
+    sentences = splitIntoSentences(questions[currentQuestionIndex].questionText);
     currentSentenceIndex = 0;
     displayedText = '';
     questionElem.textContent = '';
@@ -308,6 +311,7 @@ function nextQuestion() {
         showQuestion(currentQuestionIndex);
     }
 }
+
   
 
 function resetUIForNewQuestion() {
