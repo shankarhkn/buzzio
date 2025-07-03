@@ -306,16 +306,7 @@ function repeatQuestion() {
     }
 }
 window.onload = async () => {
-    // Load packet data (including metadata and questions)
-    const packetData = await loadPacket('packet.txt');
-
-    // Show metadata in the UI
-    document.getElementById('category').textContent = packetData.category || 'Unknown';
-    document.getElementById('year').textContent = packetData.year || 'Unknown';
-    document.getElementById('level').textContent = packetData.level || 'Unknown';
-    document.getElementById('round').textContent = packetData.round || 'Unknown';
-
-    // Get questions array from packet data
+    packetData = await loadPacket('packet.txt');
     questions = packetData.questions || [];
 
     if (questions.length === 0) {
@@ -324,13 +315,14 @@ window.onload = async () => {
         return;
     }
 
-    // Shuffle questions
     shuffleArray(questions);
+    currentQuestionIndex = 0;
 
-    // Reset UI for the first question
+    updateMetadataDisplay(currentQuestionIndex, packetData);
+    showQuestion(currentQuestionIndex);
+    enableButtons(true);
     resetUIForNewQuestion();
 
-    // Button event listeners
     startReadingBtn.addEventListener('click', () => {
         if (!reading) {
             readCurrentQuestion();
@@ -355,8 +347,8 @@ window.onload = async () => {
     });
 
     speedDisplay.textContent = speedSlider.value + 'x';
-    enableButtons(true);
 };
+
   
 
 window.addEventListener('keydown', (e) => {
@@ -371,7 +363,5 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
-document.addEventListener('DOMContentLoaded', () => {
-    initialize();
-});
+
   
