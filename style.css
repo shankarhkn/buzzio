@@ -113,3 +113,37 @@ button:disabled {
     font-style: italic;
     color: #555;
 }
+
+.highlighted {
+    color: #007bff;
+    font-weight: 700;
+}
+
+.hidden-word {
+    color: transparent;
+    user-select: none;
+}
+
+/* Result message colors */
+.correct {
+    color: green;
+    font-weight: bold;
+}
+
+.incorrect {
+    color: red;
+    font-weight: bold;
+}
+
+.listening {
+    color: orange;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+.warning {
+    color: #cc6600;
+}
