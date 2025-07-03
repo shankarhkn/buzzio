@@ -24,34 +24,42 @@ async function loadPacket(url) {
 }
 
 function speakWithSync(text, onEnd) {
-    const words = text.split(/\s+/);
-    let index = 0;
     const questionElem = document.getElementById('questionText');
+    const sentences = text.match(/[^.!?]+[.!?]*/g) || [text]; // Break into sentences or fallback
+    let spokenText = '';
+    let current = 0;
+    reading = true;
 
-    const utterance = new SpeechSynthesisUtterance();
-    utterance.lang = 'en-US';
-    utterance.rate = 2.0; // ← Make it faster (default is 1.0; max ~2.0)
-
-    const showNextWord = () => {
-        if (index >= words.length) {
+    function speakSentence(sentenceIndex) {
+        if (sentenceIndex >= sentences.length) {
             reading = false;
             if (onEnd) onEnd();
             return;
         }
 
-        const currentWords = words.slice(0, index + 1).join(' ');
-        questionElem.textContent = currentWords;
-        utterance.text = words[index];
-        index++;
+        const sentence = sentences[sentenceIndex].trim();
+        const utterance = new SpeechSynthesisUtterance(sentence);
+        utterance.lang = 'en-US';
+        utterance.rate = 1.6;
+
+        // Reveal each sentence after it's spoken
+        utterance.onstart = () => {
+            questionElem.textContent = spokenText + sentence;
+        };
+
+        utterance.onend = () => {
+            spokenText += sentence + ' ';
+            questionElem.textContent = spokenText.trim();
+            // Add a pause between sentences (especially after a period)
+            setTimeout(() => speakSentence(sentenceIndex + 1), 250);
+        };
 
         speechSynthesis.speak(utterance);
-    };
+    }
 
-    utterance.onend = showNextWord;
-
-    reading = true;
-    showNextWord();
+    speakSentence(current);
 }
+  
   
 
 function stopSpeaking() {
