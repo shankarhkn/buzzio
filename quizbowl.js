@@ -246,10 +246,13 @@ function startRecognition() {
 }
 
 function onBuzz() {
-    if (!reading) return;
-
+    // Always stop TTS first
     stopSpeaking();
 
+    // Prevent buzzing if no question is being read
+    if (!reading) return;
+
+    // Start speech recognition
     recognition = startRecognition();
     if (!recognition) return;
 
@@ -272,6 +275,7 @@ function onBuzz() {
 
     recognition.start();
 }
+
 
 function handleAnswer(answerText) {
     if (recognition) recognition.stop();
