@@ -1,22 +1,75 @@
-The concept of this type of mathematical structure was first introduced by Dedekind in 1872. One example of such a structure is the group of integers under addition. For ten points, name this algebraic structure consisting of a set and a single associative binary operation with an identity element.
-Answer: group
-
+(1) This man became the head of the Peabody Museum of National History after a donation of
+$100,000 from his uncle George Peabody. This person named several genera, including the (+)
+Diplodocus, Stegosaurus, and the Triceratops. This man had an intense rivalry with Edward Drinker
+Cope, with whom he competed against during an event sometimes referred to as the (*) "Great
+Dinosaur Rush." For the points, name this prominent paleontologist at Yale College who engaged in the Bone
+Wars.
+ANSWER: Othniel Marsh (or Othniel Charles Marsh)
 ***
-
-This city is home to the famous Golden Gate Bridge and Alcatraz Island. It was the site of the 1849 Gold Rush and the 1906 earthquake. For ten points, name this major city in California.
-Answer: San Francisco
-
+(2) All Thompson seedless grapes in California vineyards are sprayed with one of these
+compounds at fruit set in order to increase grape size. Ent-kaurenes are diterpenoids that serve as a
+precursor to these (+) hormones. These proteins were discovered in 1926 by Eichi Kurosawa by
+studying rice that was afflicted with (*) foolish seedling disease. For the points, name this class of plant
+hormones that, while they are not auxins, cause stems to elongate as well as contribute to seed germination
+and growth.
+ANSWER: Gibberellins (accept GAs, prompt on "Diterpenoids" before mention)
 ***
-
-This chemical element has the atomic number 26 and is a key component of steel. Its symbol is Fe. For ten points, name this metal.
-Answer: iron
-
+(3) Casuarina bark was used in attempts to treat this disease. Though this disease, whose name
+means "trembling," stopped being spread in the 1960s, the last deaths only occurred in the early
+2000s given its long incubation period. This disease most affected women and children due to local (+) funerary practices. This illness, once common among the Fore people, began with a case of
+sporadic (*) Creutzfeldt–Jakob disease. For the points, name this prion disease spread in Papua New Guinea via cannibalism of the brain.
+ANSWER: Kuru (prompt on “Transmissible Spongiform Encephalopathy” or “TSE” or “Creutzfeldt-Jakob disease” or “CJD” before mentioned)
 ***
-
-This author wrote “Pride and Prejudice” and “Sense and Sensibility.” For ten points, name this English novelist known for her keen social commentary.
-Answer: Jane Austen
-
+(4) The Held–Hou Model envisioned these phenomena in the absence of turbulence, and their
+existence was confirmed by radiosondes. These phenomena interact with similar ones named for
+William Ferrel to create a (+) windless, arid area known as the horse latitudes around 30 degrees
+from the Equator. These phenomena rise in the intertropical convergence zone, and contribute to the
+(*) subtropical jet. For the points, name these circulation patterns which involve the rising of air from the
+Equator.
+ANSWER: Hadley Cells (or Hadley Circulation)
 ***
-
-This physicist developed the theory of general relativity and won the 1921 Nobel Prize in Physics. For ten points, name this scientist famous for the equation E=mc^2.
-Answer: Albert Einstein
+(5) Parietal cells lining this organ secrete intrinsic factor, a protein crucial for the absorption of
+vitamin B12. The upper, dome-shaped portion of this organ is called the (+) fundus, and it usually
+appears as an air-filled space on X-ray images. Peptic ulcers affecting the wall of this organ may be
+caused by (*) Helicobacter pylori infection and their perforation is a life-threatening condition. For the
+points, name this muscular sac which produces hydrochloric acid and digests food.
+ANSWER: Stomach
+***
+(6) An AJHG journal entry analyzed MSY data to find that it would be "a good fit to the present
+data" if this individual inhabited "central-northwest Africa". The sixty million base pairs of a
+namesake entity belonging to this being has a lower (+) mutation rate than a type of a DNA used to
+study this being's counterpart. The extinction of paternal lineages can affect the holder of this title of
+which Mitochondrial Eve is the (*) matrilineal counterpart. For the points, give this term for the most
+recent common male ancestor from whom all living humans are descended.
+ANSWER: Y-chromosomal (or chromosome) Adam (or Y-chromosomal most recent common
+ancestor; accept answers indicating most recent common male ancestor of humans before "recent" is
+read and prompt after; prompt on "Adam")
+***
+(7) The use of this compound to preserve wheat resulted in a mass poisoning in rural Iraq in 1971.
+This compound was released by the Showa Denko company in Niigata, which resulted in mass ataxia.
+A Chisso Corporation (+) wastewater disposal program resulted in the release of this compound into
+local food sources, causing Minamata disease. This byproduct of ethanal production dangerously
+bioaccumulates in aquatic ecosystems at the top of the (*) food chain. For the points, name this extremely
+toxic ionic compound, the primary source of mercury poisoning in humans.
+ANSWER: Methylmercury (do not accept or prompt on "mercury")
+***
+(8) These proteins contain a central "selectivity filter" and can be blocked by tetrodotoxins
+derived from puffer fish. Examples of these proteins include the glutamate-binding (+) NMDA and
+AMPA receptors that help mediate neuroplasticity. One of these proteins called Na-sub-x can sense
+the amount of sodium in the blood. These proteins come in (*) "ligand-gated" and "voltage-gated"
+subtypes, which open and close to depolarize neurons during an action potential. For the points, name these
+proteins that allow charged atoms like potassium to cross the cell membrane.
+ANSWER: Ion Channels (accept specific subtypes; accept Sodium Channels; accept Potassium Channels;
+accept Calcium Channels; accept Ionotropic receptors; prompt on "Channels" or "Membrane Proteins" or
+"Transmembrane Proteins" or "Receptors")
+***
+(9) This phenomenon is especially present on Jan Mayen, a Norwegian Island which benefits from the Gulf Stream. This phenomenon, a macroscopic manifestation of thermal inertia, explains why the (+) autumnal equinox is typically warmer than the vernal equinox and why San Francisco's recordhigh temperature was recorded in September. (*) For the points, name this phenomenon where the onset of the hottest and coldest temperatures in a given year is delayed beyond June or January.
+ANSWER: Seasonal Lag (accept clear-knowledge equivalents)
+***
+(10) In 2012, Retter and Heller published an article titled for reviving the idea of these objects as
+“small bangs”. These objects were first proposed by Igor Nivokov in 1964, called the maximally
+extended version of the (+) Schwarzschild metric. Supermassive objects at the centers of galaxies are
+thought to create these other objects according to the Einstein-Rosen bridge. (*) For the points, name
+these regions of spacetime where nothing can enter, but matter and light can escape, causing Stephen
+Hawking to consider them the opposite of black holes.
+ANSWER: White Holes

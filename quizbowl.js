@@ -7,7 +7,6 @@ let utterance = null;
 
 let sentences = [];
 let currentSentenceIndex = 0;
-let currentWordIndex = 0;
 let displayedText = '';
 
 const questionElem = document.getElementById('questionText');
@@ -42,7 +41,6 @@ async function loadPacket(url) {
 }
 
 function splitIntoSentences(text) {
-    // Basic sentence splitter on punctuation with lookbehind to keep punctuation
     return text.match(/[^.!?]+[.!?]?/g).map(s => s.trim());
 }
 
@@ -51,17 +49,12 @@ function speakSentence(sentence, onWordCallback, onEnd) {
         alert('Text-to-speech not supported in your browser.');
         return;
     }
-
-    // Cancel any ongoing speech before starting new
     window.speechSynthesis.cancel();
 
     utterance = new SpeechSynthesisUtterance(sentence);
     utterance.lang = 'en-US';
-
-    // Set rate from slider
     utterance.rate = parseFloat(speedSlider.value);
 
-    // Pause slightly longer at periods for natural rhythm
     utterance.onboundary = (event) => {
         if (event.name === 'word') {
             const charIndex = event.charIndex;
@@ -79,23 +72,18 @@ function speakSentence(sentence, onWordCallback, onEnd) {
 }
 
 function getWordAt(text, charIndex) {
-    // Find word in text at given charIndex
-    // We'll split sentence into words by spaces, then find which word includes charIndex
     const words = text.split(/\s+/);
     let count = 0;
     for (const word of words) {
         if (charIndex >= count && charIndex < count + word.length) {
             return word;
         }
-        count += word.length + 1; // +1 for the space
+        count += word.length + 1;
     }
     return '';
 }
 
 function updateDisplayedText(sentence, spokenWords) {
-    // We want to show the entire previously spoken text + current words as they get spoken
-    // spokenWords is an array of words spoken so far in this sentence
-    // Show previous sentences + these words joined with spaces
     let previousSentencesText = sentences.slice(0, currentSentenceIndex).join(' ') + ' ';
     let currentText = spokenWords.join(' ');
     questionElem.textContent = (previousSentencesText + currentText).trim();
@@ -114,7 +102,6 @@ function readCurrentQuestion() {
 
 function readNextSentence() {
     if (currentSentenceIndex >= sentences.length) {
-        // Done reading whole question
         reading = false;
         enableButtons(true);
         return;
@@ -125,7 +112,6 @@ function readNextSentence() {
 
     enableButtons(false);
 
-    // Using the SpeechSynthesisUtterance boundary event to reveal words in real-time
     utterance = new SpeechSynthesisUtterance(sentence);
     utterance.lang = 'en-US';
     utterance.rate = parseFloat(speedSlider.value);
@@ -142,7 +128,6 @@ function readNextSentence() {
     };
 
     utterance.onend = () => {
-        // Add a small pause between sentences for natural feel (e.g. 400ms)
         setTimeout(() => {
             currentSentenceIndex++;
             readNextSentence();
@@ -183,7 +168,7 @@ function startRecognition() {
 }
 
 function onBuzz() {
-    if (!reading) return; // Only buzz if question is being read
+    if (!reading) return;
 
     stopSpeaking();
 
@@ -228,7 +213,6 @@ function handleAnswer(answerText) {
 }
 
 function checkAnswer(userAnswer, correctAnswer) {
-    // Basic contains check or exact match - can improve with fuzzy matching
     return userAnswer.includes(correctAnswer) || correctAnswer.includes(userAnswer);
 }
 
@@ -237,7 +221,7 @@ function nextQuestion() {
 
     currentIndex++;
     if (currentIndex >= questions.length) {
-        currentIndex = 0; // loop back
+        currentIndex = 0;
     }
     resetUIForNewQuestion();
 }
@@ -258,8 +242,6 @@ function repeatQuestion() {
         resultElem.textContent = '';
     }
 }
-
-// --- Initialization ---
 
 window.onload = async () => {
     questions = await loadPacket('packet.txt');
@@ -298,7 +280,6 @@ window.onload = async () => {
     enableButtons(true);
 };
 
-// Also add keyboard buzz (spacebar) support
 window.addEventListener('keydown', (e) => {
     if (e.code === 'Space' && !e.repeat) {
         e.preventDefault();
