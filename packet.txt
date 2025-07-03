@@ -1,16 +1,22 @@
 The concept of this type of mathematical structure was first introduced by Dedekind in 1872. One example of such a structure is the group of integers under addition. For ten points, name this algebraic structure consisting of a set and a single associative binary operation with an identity element.
 Answer: group
 
+***
+
 This city is home to the famous Golden Gate Bridge and Alcatraz Island. It was the site of the 1849 Gold Rush and the 1906 earthquake. For ten points, name this major city in California.
 Answer: San Francisco
+
+***
 
 This chemical element has the atomic number 26 and is a key component of steel. Its symbol is Fe. For ten points, name this metal.
 Answer: iron
 
+***
+
 This author wrote “Pride and Prejudice” and “Sense and Sensibility.” For ten points, name this English novelist known for her keen social commentary.
 Answer: Jane Austen
 
+***
+
 This physicist developed the theory of general relativity and won the 1921 Nobel Prize in Physics. For ten points, name this scientist famous for the equation E=mc^2.
 Answer: Albert Einstein
-
-***

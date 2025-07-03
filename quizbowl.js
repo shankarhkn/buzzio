@@ -76,22 +76,25 @@ function onBuzz() {
     const resultElem = document.getElementById('result');
     if (resultElem) resultElem.textContent = 'Listening for your answer...';
 
-    recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        handleAnswer(transcript);
-    };
+    // Only set event handlers if recognition is valid
+    if (recognition) {
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            handleAnswer(transcript);
+        };
 
-    recognition.onerror = (event) => {
-        if (resultElem) resultElem.textContent = 'Speech recognition error: ' + event.error;
-    };
+        recognition.onerror = (event) => {
+            if (resultElem) resultElem.textContent = 'Speech recognition error: ' + event.error;
+        };
 
-    recognition.onend = () => {
-        if (resultElem && resultElem.textContent === 'Listening for your answer...') {
-            resultElem.textContent = 'No answer detected. Try buzzing again.';
-        }
-    };
+        recognition.onend = () => {
+            if (resultElem && resultElem.textContent === 'Listening for your answer...') {
+                resultElem.textContent = 'No answer detected. Try buzzing again.';
+            }
+        };
 
-    recognition.start();
+        recognition.start();
+    }
 }
 
 function handleAnswer(answerText) {
@@ -139,23 +142,6 @@ window.addEventListener('keydown', (e) => {
         onBuzz();
     }
 });
-recognition.onerror = (event) => {
-  console.error('Speech recognition error:', event.error);
-  alert(`Speech recognition error: ${event.error}. Try Chrome Incognito and ensure mic access is allowed.`);
-};
-
-recognition.onaudiostart = () => {
-  console.log('Audio capturing started.');
-};
-recognition.onaudioend = () => {
-  console.log('Audio capturing ended.');
-};
-recognition.onstart = () => {
-  console.log('Recognition started');
-};
-recognition.onend = () => {
-  console.log('Recognition ended');
-};
 
 // Initialization
 window.onload = async () => {
