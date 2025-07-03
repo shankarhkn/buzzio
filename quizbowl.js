@@ -93,7 +93,20 @@ async function loadPacket(url) {
         const questionLines = lines.slice(0, answerIndex);
 
         // Join question lines, remove leading question number if present (like "(1)")
-        let questionText = questionLines.join(' ').replace(/^\(\d+\)\s*/, '').trim();
+        // Try to match something like "(4)" or "4." at the start
+        let fullText = questionLines.join(' ').trim();
+
+        let numberMatch = fullText.match(/^\(?(\d+)[\).]?\s*/);
+        let questionNumber = numberMatch ? parseInt(numberMatch[1]) : null;
+
+        // Remove the number prefix from the text
+        let questionText = fullText.replace(/^\(?\d+[\).]?\s*/, '').trim();
+        return {
+            questionText,
+            answer: answerText,
+            number: questionNumber
+        };
+
 
         // Answer lines: from answerIndex to end
         const answerText = lines.slice(answerIndex)[0].replace(/^ANSWER:\s*/i, '').trim();
@@ -112,7 +125,9 @@ function updateMetadataDisplay(currentIndex, packetData) {
   document.getElementById('question-year').textContent = packetData.year || 'Unknown Year';
   document.getElementById('question-level').textContent = packetData.level || 'Unknown Level';
   document.getElementById('question-round').textContent = packetData.round || 'Unknown Round';
-  document.getElementById('question-number').textContent = `Q${currentIndex + 1}`;
+  let qnum = questions[currentIndex].number;
+  document.getElementById('question-number').textContent = qnum ? `Q${qnum}` : `Q${currentIndex + 1}`;
+
 }
 
 
