@@ -2,6 +2,7 @@ let questions = [];
 let currentIndex = 0;
 let reading = false;
 let recognition = null;
+let speechRate = 1.5; // default speech rate
 
 async function loadPacket(url) {
     try {
@@ -10,56 +11,27 @@ async function loadPacket(url) {
         const text = await response.text();
         const rawQuestions = text.split('***');
 
-        return rawQuestions.map(raw => {
-            const lines = raw.trim().split('\n');
-            const answerLine = lines.find(line => line.toLowerCase().startsWith('answer:'));
-            const answer = answerLine ? answerLine.replace(/answer:/i, '').trim() : '';
-            const questionText = lines.filter(line => !line.toLowerCase().startsWith('answer:')).join(' ').trim();
-            return { questionText, answer };
-        }).filter(q => q.questionText.length > 0);
+        const parsedQuestions = rawQuestions
+            .map((raw) => {
+                const lines = raw.trim().split('\n');
+                const answerLine = lines.find((line) =>
+                    line.toLowerCase().startsWith('answer:')
+                );
+                const answer = answerLine ? answerLine.replace(/answer:/i, '').trim() : '';
+                const questionText = lines
+                    .filter((line) => !line.toLowerCase().startsWith('answer:'))
+                    .join(' ')
+                    .trim();
+                return { questionText, answer };
+            })
+            .filter((q) => q.questionText.length > 0);
+
+        return parsedQuestions;
     } catch (error) {
         alert('Error loading packet: ' + error.message);
         return [];
     }
 }
-
-function speakWithSync(text, onEnd) {
-    const questionElem = document.getElementById('questionText');
-    const sentences = text.match(/[^.!?]+[.!?]*/g) || [text];
-    let spokenText = '';
-    let current = 0;
-    reading = true;
-
-    function speakSentence(sentenceIndex) {
-        if (sentenceIndex >= sentences.length) {
-            reading = false;
-            if (onEnd) onEnd();
-            return;
-        }
-
-        const sentence = sentences[sentenceIndex].trim();
-        const utterance = new SpeechSynthesisUtterance(sentence);
-        utterance.lang = 'en-US';
-        utterance.rate = readingSpeed;
-
-        utterance.onstart = () => {
-            questionElem.textContent = spokenText + sentence;
-        };
-
-        utterance.onend = () => {
-            spokenText += sentence + ' ';
-            questionElem.textContent = spokenText.trim();
-            setTimeout(() => speakSentence(sentenceIndex + 1), 250); // small pause
-        };
-
-        speechSynthesis.speak(utterance);
-    }
-
-    speakSentence(current);
-}
-
-  
-  
 
 function stopSpeaking() {
     if ('speechSynthesis' in window && speechSynthesis.speaking) {
@@ -68,11 +40,67 @@ function stopSpeaking() {
     reading = false;
 }
 
+function speakWords(words, onEnd) {
+    if (!('speechSynthesis' in window)) {
+        alert('Text-to-speech not supported in your browser.');
+        reading = false;
+        return;
+    }
+
+    const questionElem = document.getElementById('questionText');
+    questionElem.textContent = '';
+
+    let index = 0;
+
+    function speakNextWord() {
+        if (!reading || index >= words.length) {
+            reading = false;
+            if (onEnd) onEnd();
+            return;
+        }
+
+        // Append the current word to the displayed text
+        if (index === 0) {
+            questionElem.textContent = words[index];
+        } else {
+            questionElem.textContent += ' ' + words[index];
+        }
+
+        const word = words[index];
+        const utterance = new SpeechSynthesisUtterance(word);
+
+        utterance.lang = 'en-US';
+        utterance.rate = speechRate;
+
+        // Add extra pause if word ends with period or comma or semicolon
+        utterance.onend = () => {
+            if (!reading) {
+                if (onEnd) onEnd();
+                return;
+            }
+            let pauseDuration = 0;
+            if (word.match(/[.,;!?]$/)) {
+                if (word.endsWith('.')) pauseDuration = 400; // longer pause for periods
+                else pauseDuration = 200; // shorter pause for commas etc.
+            }
+            setTimeout(() => {
+                index++;
+                speakNextWord();
+            }, pauseDuration);
+        };
+
+        speechSynthesis.speak(utterance);
+    }
+
+    reading = true;
+    speakNextWord();
+}
+
 function showQuestion(index) {
-    const q = questions[index];
+    // Show empty or loading while not reading
     const questionElem = document.getElementById('questionText');
     const resultElem = document.getElementById('result');
-    if (questionElem) questionElem.textContent = '';
+    if (!reading && questionElem) questionElem.textContent = questions[index].questionText;
     if (resultElem) resultElem.textContent = '';
 }
 
@@ -90,8 +118,9 @@ function startRecognition() {
 }
 
 function onBuzz() {
-    if (!reading) return;
+    if (!reading && currentIndex >= questions.length) return; // no questions?
 
+    // Stop speaking immediately
     stopSpeaking();
 
     recognition = startRecognition();
@@ -123,44 +152,43 @@ function handleAnswer(answerText) {
 
     const correctAnswer = questions[currentIndex].answer.toLowerCase();
     const userAnswer = answerText.toLowerCase();
+
     const isCorrect = checkAnswer(userAnswer, correctAnswer);
 
     const resultElem = document.getElementById('result');
     if (resultElem) {
-        resultElem.innerHTML =
-            `You answered: "<b>${answerText}</b>". That is <span style="color:${isCorrect ? 'green' : 'red'};">${isCorrect ? 'correct!' : 'incorrect.'}</span>` +
-            (!isCorrect ? `<br>Correct answer: <b>${questions[currentIndex].answer}</b>` : '');
+        resultElem.textContent = `You answered: "${answerText}". That is ${isCorrect ? 'correct!' : 'incorrect.'}`;
+        if (!isCorrect) {
+            resultElem.textContent += ` Correct answer: "${questions[currentIndex].answer}".`;
+        }
     }
 }
 
 function checkAnswer(userAnswer, correctAnswer) {
+    // Basic contains check or exact match - can improve with fuzzy matching
     return userAnswer.includes(correctAnswer) || correctAnswer.includes(userAnswer);
 }
 
 function nextQuestion() {
-    if (reading) stopSpeaking();
+    stopSpeaking();
 
     currentIndex++;
-    if (currentIndex >= questions.length) currentIndex = 0;
-
+    if (currentIndex >= questions.length) {
+        currentIndex = 0; // loop back
+    }
     showQuestion(currentIndex);
     readCurrentQuestion();
 }
 
 function readCurrentQuestion() {
-    reading = true;
-    speakWithSync(questions[currentIndex].questionText, () => {
-        reading = false;
-    });
+    if (currentIndex >= questions.length) return;
+
+    const questionText = questions[currentIndex].questionText;
+    const words = questionText.split(/\s+/);
+    speakWords(words);
 }
 
-window.addEventListener('keydown', (e) => {
-    if (e.code === 'Space') {
-        e.preventDefault();
-        onBuzz();
-    }
-});
-
+// Init
 window.onload = async () => {
     questions = await loadPacket('packet.txt');
     if (questions.length === 0) {
@@ -171,17 +199,27 @@ window.onload = async () => {
 
     showQuestion(currentIndex);
 
-    document.getElementById('nextBtn').addEventListener('click', () => nextQuestion());
+    document.getElementById('nextBtn').addEventListener('click', nextQuestion);
     document.getElementById('repeatBtn').addEventListener('click', () => {
         if (!reading) readCurrentQuestion();
     });
+    document.getElementById('buzzBtn').addEventListener('click', onBuzz);
 
-    const startButton = document.createElement('button');
-    startButton.textContent = "Start Reading";
-    startButton.style.marginTop = "20px";
-    startButton.onclick = () => {
-        readCurrentQuestion();
-        startButton.remove();
-    };
-    document.querySelector('.controls').appendChild(startButton);
+    // Speed slider
+    const speedSlider = document.getElementById('speedSlider');
+    const speedDisplay = document.getElementById('speedDisplay');
+    speedSlider.value = speechRate;
+    speedDisplay.textContent = speechRate.toFixed(2) + 'x';
+
+    speedSlider.addEventListener('input', () => {
+        speechRate = parseFloat(speedSlider.value);
+        speedDisplay.textContent = speechRate.toFixed(2) + 'x';
+    });
+
+    // Start reading button
+    const startButton = document.getElementById('startReadingBtn');
+    startButton.addEventListener('click', () => {
+        if (!reading) readCurrentQuestion();
+        startButton.disabled = true;
+    });
 };
