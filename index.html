@@ -5,50 +5,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Buzzio - Quizbowl TTS & Buzz</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            max-width: 600px;
-            margin: auto;
-        }
-
-        #questionText {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-
-        #result {
-            margin-top: 15px;
-            color: darkblue;
-            min-height: 24px;
-        }
-
-        button {
-            margin-right: 10px;
-            padding: 10px 20px;
-            font-size: 1em;
-        }
-
-        .controls {
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+    <div class="container">
+        <h1>Buzzio</h1>
 
-    <h1>Buzzio</h1>
-    <div id="questionText">Loading questions...</div>
-    <div id="result"></div>
+        <div id="questionText" class="question">Loading questions...</div>
 
-    <div class="controls">
-        <button id="nextBtn">Next Question</button>
-        <button id="repeatBtn">Repeat Question</button>
+        <div id="result" class="result"></div>
+
+        <div id="status" class="status idle">Idle</div>
+
+        <div class="controls">
+            <button id="buzzBtn" class="buzz-btn" aria-label="Buzz in">Buzz!</button>
+            <button id="nextBtn">Next Question</button>
+            <button id="repeatBtn">Repeat Question</button>
+            <button id="startReadingBtn">Start Reading</button>
+        </div>
+
+        <div class="instructions">
+            <p>Press <strong>Spacebar</strong> or click <strong>Buzz!</strong> to buzz in while the question is being
+                read.</p>
+        </div>
     </div>
 
     <script src="quizbowl.js"></script>
-
 </body>
 
 </html>
