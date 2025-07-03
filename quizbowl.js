@@ -34,6 +34,20 @@ async function initialize() {
     showQuestion(currentQuestionIndex);
     enableButtons(true);
 }
+function showQuestion(index) {
+    const question = questions[index];
+    if (!question) {
+        questionElem.textContent = 'No question available.';
+        return;
+    }
+
+    questionElem.textContent = '';  // Empty until spoken
+    resultElem.textContent = '';    // Clear any previous result
+    displayedText = '';
+    sentences = splitIntoSentences(question.questionText);
+    currentSentenceIndex = 0;
+}
+
   
 
 const questionElem = document.getElementById('questionText');
