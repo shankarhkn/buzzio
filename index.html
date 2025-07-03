@@ -109,10 +109,15 @@
 
         <div class="controls">
             <button id="startReadingBtn">Start Reading</button>
-            <button id="buzzBtn">Buzz</button>
             <button id="nextBtn">Next Question</button>
             <button id="repeatBtn">Repeat Question</button>
+            <button id="buzzBtn">Buzz</button>
+            <div style="margin-top: 20px;">
+                <label for="speedSlider">Reading Speed: <span id="speedValue">1.6</span>x</label>
+                <input type="range" id="speedSlider" min="0.8" max="2.5" step="0.1" value="1.6">
+            </div>
         </div>
+          
 
         <div class="slider-container">
             <label for="speedSlider">Speed: <span id="speedDisplay">1.60x</span></label>
