@@ -9,6 +9,11 @@ let sentences = [];
 let currentSentenceIndex = 0;
 let displayedText = '';
 
+let category = '';
+let year = '';
+let level = '';
+let round = '';
+
 const questionElem = document.getElementById('questionText');
 const resultElem = document.getElementById('result');
 const buzzBtn = document.getElementById('buzzBtn');
@@ -17,19 +22,37 @@ const nextBtn = document.getElementById('nextBtn');
 const repeatBtn = document.getElementById('repeatBtn');
 const speedSlider = document.getElementById('speedSlider');
 const speedDisplay = document.getElementById('speedDisplay');
+const metaElem = document.getElementById('metadata'); // new element to show metadata
 
 async function loadPacket(url) {
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error('Failed to load packet');
         const text = await response.text();
+
+        // Extract metadata from the top lines (assuming 4 lines starting with "Category:", "Year:", etc.)
+        const metaLines = text.split('\n').slice(0, 10);
+        metaLines.forEach(line => {
+            if (line.toLowerCase().startsWith('category:')) category = line.split(':')[1].trim();
+            else if (line.toLowerCase().startsWith('year:')) year = line.split(':')[1].trim();
+            else if (line.toLowerCase().startsWith('level:')) level = line.split(':')[1].trim();
+            else if (line.toLowerCase().startsWith('round:')) round = line.split(':')[1].trim();
+        });
+
+        // Show metadata immediately
+        updateMetadataDisplay();
+
+        // Split questions by ***
         const rawQuestions = text.split('***');
 
         const parsedQuestions = rawQuestions.map(raw => {
-            const lines = raw.trim().split('\n');
-            const answerLine = lines.find(line => line.toLowerCase().startsWith('answer:'));
-            const answer = answerLine ? answerLine.replace(/answer:/i, '').trim() : '';
-            const questionText = lines.filter(line => !line.toLowerCase().startsWith('answer:')).join(' ').trim();
+            // Find Question: and Answer: lines
+            const questionMatch = raw.match(/Question:\s*([\s\S]*?)\nAnswer:/i);
+            const answerMatch = raw.match(/Answer:\s*([\s\S]*)/i);
+
+            const questionText = questionMatch ? questionMatch[1].trim().replace(/\n/g, ' ') : '';
+            const answer = answerMatch ? answerMatch[1].trim() : '';
+
             return { questionText, answer };
         }).filter(q => q.questionText.length > 0);
 
@@ -38,6 +61,11 @@ async function loadPacket(url) {
         alert('Error loading packet: ' + error.message);
         return [];
     }
+}
+
+function updateMetadataDisplay() {
+    if (!metaElem) return;
+    metaElem.textContent = `Category: ${category} | Year: ${year} | Level: ${level} | Round: ${round}`;
 }
 
 function splitIntoSentences(text) {
@@ -49,6 +77,7 @@ function speakSentence(sentence, onWordCallback, onEnd) {
         alert('Text-to-speech not supported in your browser.');
         return;
     }
+
     window.speechSynthesis.cancel();
 
     utterance = new SpeechSynthesisUtterance(sentence);
