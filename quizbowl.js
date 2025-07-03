@@ -25,7 +25,7 @@ async function loadPacket(url) {
 
 function speakWithSync(text, onEnd) {
     const questionElem = document.getElementById('questionText');
-    const sentences = text.match(/[^.!?]+[.!?]*/g) || [text]; // Break into sentences or fallback
+    const sentences = text.match(/[^.!?]+[.!?]*/g) || [text];
     let spokenText = '';
     let current = 0;
     reading = true;
@@ -40,9 +40,8 @@ function speakWithSync(text, onEnd) {
         const sentence = sentences[sentenceIndex].trim();
         const utterance = new SpeechSynthesisUtterance(sentence);
         utterance.lang = 'en-US';
-        utterance.rate = 1.6;
+        utterance.rate = readingSpeed;
 
-        // Reveal each sentence after it's spoken
         utterance.onstart = () => {
             questionElem.textContent = spokenText + sentence;
         };
@@ -50,8 +49,7 @@ function speakWithSync(text, onEnd) {
         utterance.onend = () => {
             spokenText += sentence + ' ';
             questionElem.textContent = spokenText.trim();
-            // Add a pause between sentences (especially after a period)
-            setTimeout(() => speakSentence(sentenceIndex + 1), 250);
+            setTimeout(() => speakSentence(sentenceIndex + 1), 250); // small pause
         };
 
         speechSynthesis.speak(utterance);
@@ -59,6 +57,7 @@ function speakWithSync(text, onEnd) {
 
     speakSentence(current);
 }
+
   
   
 
