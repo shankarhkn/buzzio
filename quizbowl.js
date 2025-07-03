@@ -14,6 +14,28 @@ let year = '';
 let level = '';
 let round = '';
 
+let currentQuestionIndex = 0;
+let packetData = null;  // This will hold metadata and questions once loaded
+
+async function initialize() {
+    packetData = await loadPacket('packet.txt');
+    questions = packetData.questions;
+
+    if (!questions || questions.length === 0) {
+        questionElem.textContent = 'No questions loaded.';
+        enableButtons(false);
+        return;
+    }
+
+    shuffleArray(questions);
+    currentQuestionIndex = 0;
+
+    updateMetadataDisplay(currentQuestionIndex, packetData);
+    showQuestion(currentQuestionIndex);
+    enableButtons(true);
+}
+  
+
 const questionElem = document.getElementById('questionText');
 const resultElem = document.getElementById('result');
 const buzzBtn = document.getElementById('buzzBtn');
@@ -72,10 +94,14 @@ async function loadPacket(url) {
     return { category, year, level, round, questions: parsedQuestions };
 }
 
-function updateMetadataDisplay() {
-    if (!metaElem) return;
-    metaElem.textContent = `Category: ${category} | Year: ${year} | Level: ${level} | Round: ${round}`;
+function updateMetadataDisplay(currentIndex, packetData) {
+  document.getElementById('question-category').textContent = packetData.category || 'Unknown Category';
+  document.getElementById('question-year').textContent = packetData.year || 'Unknown Year';
+  document.getElementById('question-level').textContent = packetData.level || 'Unknown Level';
+  document.getElementById('question-round').textContent = packetData.round || 'Unknown Round';
+  document.getElementById('question-number').textContent = `Q${currentIndex + 1}`;
 }
+
 
 function splitIntoSentences(text) {
     return text.match(/[^.!?]+[.!?]?/g).map(s => s.trim());
@@ -255,14 +281,13 @@ function checkAnswer(userAnswer, correctAnswer) {
 }
 
 function nextQuestion() {
-    if (reading) stopSpeaking();
-
-    currentIndex++;
-    if (currentIndex >= questions.length) {
-        currentIndex = 0;
+    if (currentQuestionIndex + 1 < questions.length) {
+        currentQuestionIndex++;
+        updateMetadataDisplay(currentQuestionIndex, packetData);
+        showQuestion(currentQuestionIndex);
     }
-    resetUIForNewQuestion();
 }
+  
 
 function resetUIForNewQuestion() {
     questionElem.textContent = '';
@@ -346,3 +371,7 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
+document.addEventListener('DOMContentLoaded', () => {
+    initialize();
+});
+  

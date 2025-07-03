@@ -67,3 +67,22 @@ button:hover {
     font-style: italic;
     color: #666;
 }
+#question-meta-left span {
+    display: inline-block;
+    padding: 4px 10px;
+    margin-right: 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    border: 1.5px solid #0d47a1;
+    user-select: none;
+}
+
+#question-number {
+    color: #007bff;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
