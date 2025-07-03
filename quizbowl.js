@@ -1,8 +1,23 @@
 let questions = [];
 let currentIndex = 0;
+
 let reading = false;
 let recognition = null;
-let speechRate = 1.5; // default speech rate
+let utterance = null;
+
+let sentences = [];
+let currentSentenceIndex = 0;
+let currentWordIndex = 0;
+let displayedText = '';
+
+const questionElem = document.getElementById('questionText');
+const resultElem = document.getElementById('result');
+const buzzBtn = document.getElementById('buzzBtn');
+const startReadingBtn = document.getElementById('startReadingBtn');
+const nextBtn = document.getElementById('nextBtn');
+const repeatBtn = document.getElementById('repeatBtn');
+const speedSlider = document.getElementById('speedSlider');
+const speedDisplay = document.getElementById('speedDisplay');
 
 async function loadPacket(url) {
     try {
@@ -11,20 +26,13 @@ async function loadPacket(url) {
         const text = await response.text();
         const rawQuestions = text.split('***');
 
-        const parsedQuestions = rawQuestions
-            .map((raw) => {
-                const lines = raw.trim().split('\n');
-                const answerLine = lines.find((line) =>
-                    line.toLowerCase().startsWith('answer:')
-                );
-                const answer = answerLine ? answerLine.replace(/answer:/i, '').trim() : '';
-                const questionText = lines
-                    .filter((line) => !line.toLowerCase().startsWith('answer:'))
-                    .join(' ')
-                    .trim();
-                return { questionText, answer };
-            })
-            .filter((q) => q.questionText.length > 0);
+        const parsedQuestions = rawQuestions.map(raw => {
+            const lines = raw.trim().split('\n');
+            const answerLine = lines.find(line => line.toLowerCase().startsWith('answer:'));
+            const answer = answerLine ? answerLine.replace(/answer:/i, '').trim() : '';
+            const questionText = lines.filter(line => !line.toLowerCase().startsWith('answer:')).join(' ').trim();
+            return { questionText, answer };
+        }).filter(q => q.questionText.length > 0);
 
         return parsedQuestions;
     } catch (error) {
@@ -33,75 +41,132 @@ async function loadPacket(url) {
     }
 }
 
+function splitIntoSentences(text) {
+    // Basic sentence splitter on punctuation with lookbehind to keep punctuation
+    return text.match(/[^.!?]+[.!?]?/g).map(s => s.trim());
+}
+
+function speakSentence(sentence, onWordCallback, onEnd) {
+    if (!('speechSynthesis' in window)) {
+        alert('Text-to-speech not supported in your browser.');
+        return;
+    }
+
+    // Cancel any ongoing speech before starting new
+    window.speechSynthesis.cancel();
+
+    utterance = new SpeechSynthesisUtterance(sentence);
+    utterance.lang = 'en-US';
+
+    // Set rate from slider
+    utterance.rate = parseFloat(speedSlider.value);
+
+    // Pause slightly longer at periods for natural rhythm
+    utterance.onboundary = (event) => {
+        if (event.name === 'word') {
+            const charIndex = event.charIndex;
+            const word = getWordAt(sentence, charIndex);
+            if (onWordCallback) onWordCallback(word);
+        }
+    };
+
+    utterance.onend = () => {
+        if (onEnd) onEnd();
+    };
+
+    window.speechSynthesis.speak(utterance);
+    reading = true;
+}
+
+function getWordAt(text, charIndex) {
+    // Find word in text at given charIndex
+    // We'll split sentence into words by spaces, then find which word includes charIndex
+    const words = text.split(/\s+/);
+    let count = 0;
+    for (const word of words) {
+        if (charIndex >= count && charIndex < count + word.length) {
+            return word;
+        }
+        count += word.length + 1; // +1 for the space
+    }
+    return '';
+}
+
+function updateDisplayedText(sentence, spokenWords) {
+    // We want to show the entire previously spoken text + current words as they get spoken
+    // spokenWords is an array of words spoken so far in this sentence
+    // Show previous sentences + these words joined with spaces
+    let previousSentencesText = sentences.slice(0, currentSentenceIndex).join(' ') + ' ';
+    let currentText = spokenWords.join(' ');
+    questionElem.textContent = (previousSentencesText + currentText).trim();
+}
+
+function readCurrentQuestion() {
+    if (reading) return;
+
+    sentences = splitIntoSentences(questions[currentIndex].questionText);
+    currentSentenceIndex = 0;
+    displayedText = '';
+    questionElem.textContent = '';
+
+    readNextSentence();
+}
+
+function readNextSentence() {
+    if (currentSentenceIndex >= sentences.length) {
+        // Done reading whole question
+        reading = false;
+        enableButtons(true);
+        return;
+    }
+
+    const sentence = sentences[currentSentenceIndex];
+    let spokenWords = [];
+
+    enableButtons(false);
+
+    // Using the SpeechSynthesisUtterance boundary event to reveal words in real-time
+    utterance = new SpeechSynthesisUtterance(sentence);
+    utterance.lang = 'en-US';
+    utterance.rate = parseFloat(speedSlider.value);
+
+    utterance.onboundary = (event) => {
+        if (event.name === 'word') {
+            const charIndex = event.charIndex;
+            const word = getWordAt(sentence, charIndex);
+            if (word) {
+                spokenWords.push(word);
+                updateDisplayedText(sentence, spokenWords);
+            }
+        }
+    };
+
+    utterance.onend = () => {
+        // Add a small pause between sentences for natural feel (e.g. 400ms)
+        setTimeout(() => {
+            currentSentenceIndex++;
+            readNextSentence();
+        }, 400);
+    };
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    reading = true;
+}
+
 function stopSpeaking() {
     if ('speechSynthesis' in window && speechSynthesis.speaking) {
         speechSynthesis.cancel();
     }
     reading = false;
+    enableButtons(true);
 }
 
-function speakWords(words, onEnd) {
-    if (!('speechSynthesis' in window)) {
-        alert('Text-to-speech not supported in your browser.');
-        reading = false;
-        return;
-    }
-
-    const questionElem = document.getElementById('questionText');
-    questionElem.textContent = '';
-
-    let index = 0;
-
-    function speakNextWord() {
-        if (!reading || index >= words.length) {
-            reading = false;
-            if (onEnd) onEnd();
-            return;
-        }
-
-        // Append the current word to the displayed text
-        if (index === 0) {
-            questionElem.textContent = words[index];
-        } else {
-            questionElem.textContent += ' ' + words[index];
-        }
-
-        const word = words[index];
-        const utterance = new SpeechSynthesisUtterance(word);
-
-        utterance.lang = 'en-US';
-        utterance.rate = speechRate;
-
-        // Add extra pause if word ends with period or comma or semicolon
-        utterance.onend = () => {
-            if (!reading) {
-                if (onEnd) onEnd();
-                return;
-            }
-            let pauseDuration = 0;
-            if (word.match(/[.,;!?]$/)) {
-                if (word.endsWith('.')) pauseDuration = 400; // longer pause for periods
-                else pauseDuration = 200; // shorter pause for commas etc.
-            }
-            setTimeout(() => {
-                index++;
-                speakNextWord();
-            }, pauseDuration);
-        };
-
-        speechSynthesis.speak(utterance);
-    }
-
-    reading = true;
-    speakNextWord();
-}
-
-function showQuestion(index) {
-    // Show empty or loading while not reading
-    const questionElem = document.getElementById('questionText');
-    const resultElem = document.getElementById('result');
-    if (!reading && questionElem) questionElem.textContent = questions[index].questionText;
-    if (resultElem) resultElem.textContent = '';
+function enableButtons(enabled) {
+    buzzBtn.disabled = !enabled;
+    nextBtn.disabled = !enabled;
+    repeatBtn.disabled = !enabled;
+    startReadingBtn.disabled = !enabled;
 }
 
 function startRecognition() {
@@ -118,16 +183,14 @@ function startRecognition() {
 }
 
 function onBuzz() {
-    if (!reading && currentIndex >= questions.length) return; // no questions?
+    if (!reading) return; // Only buzz if question is being read
 
-    // Stop speaking immediately
     stopSpeaking();
 
     recognition = startRecognition();
     if (!recognition) return;
 
-    const resultElem = document.getElementById('result');
-    if (resultElem) resultElem.textContent = 'Listening for your answer...';
+    resultElem.textContent = 'Listening for your answer...';
 
     recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
@@ -135,11 +198,11 @@ function onBuzz() {
     };
 
     recognition.onerror = (event) => {
-        if (resultElem) resultElem.textContent = 'Speech recognition error: ' + event.error;
+        resultElem.textContent = 'Speech recognition error: ' + event.error;
     };
 
     recognition.onend = () => {
-        if (resultElem && resultElem.textContent === 'Listening for your answer...') {
+        if (resultElem.textContent === 'Listening for your answer...') {
             resultElem.textContent = 'No answer detected. Try buzzing again.';
         }
     };
@@ -155,11 +218,11 @@ function handleAnswer(answerText) {
 
     const isCorrect = checkAnswer(userAnswer, correctAnswer);
 
-    const resultElem = document.getElementById('result');
     if (resultElem) {
-        resultElem.textContent = `You answered: "${answerText}". That is ${isCorrect ? 'correct!' : 'incorrect.'}`;
-        if (!isCorrect) {
-            resultElem.textContent += ` Correct answer: "${questions[currentIndex].answer}".`;
+        if (isCorrect) {
+            resultElem.textContent = `You answered: "${answerText}". That is correct! 🎉`;
+        } else {
+            resultElem.textContent = `You answered: "${answerText}". That is incorrect. The correct answer is: "${questions[currentIndex].answer}".`;
         }
     }
 }
@@ -170,56 +233,75 @@ function checkAnswer(userAnswer, correctAnswer) {
 }
 
 function nextQuestion() {
-    stopSpeaking();
+    if (reading) stopSpeaking();
 
     currentIndex++;
     if (currentIndex >= questions.length) {
         currentIndex = 0; // loop back
     }
-    showQuestion(currentIndex);
-    readCurrentQuestion();
+    resetUIForNewQuestion();
 }
 
-function readCurrentQuestion() {
-    if (currentIndex >= questions.length) return;
-
-    const questionText = questions[currentIndex].questionText;
-    const words = questionText.split(/\s+/);
-    speakWords(words);
+function resetUIForNewQuestion() {
+    questionElem.textContent = '';
+    resultElem.textContent = '';
+    displayedText = '';
+    sentences = [];
+    currentSentenceIndex = 0;
+    reading = false;
+    enableButtons(true);
 }
 
-// Init
+function repeatQuestion() {
+    if (!reading) {
+        readCurrentQuestion();
+        resultElem.textContent = '';
+    }
+}
+
+// --- Initialization ---
+
 window.onload = async () => {
     questions = await loadPacket('packet.txt');
     if (questions.length === 0) {
-        const questionElem = document.getElementById('questionText');
-        if (questionElem) questionElem.textContent = 'No questions loaded.';
+        questionElem.textContent = 'No questions loaded.';
+        enableButtons(false);
         return;
     }
 
-    showQuestion(currentIndex);
+    resetUIForNewQuestion();
 
-    document.getElementById('nextBtn').addEventListener('click', nextQuestion);
-    document.getElementById('repeatBtn').addEventListener('click', () => {
-        if (!reading) readCurrentQuestion();
+    startReadingBtn.addEventListener('click', () => {
+        if (!reading) {
+            readCurrentQuestion();
+            resultElem.textContent = '';
+        }
     });
-    document.getElementById('buzzBtn').addEventListener('click', onBuzz);
 
-    // Speed slider
-    const speedSlider = document.getElementById('speedSlider');
-    const speedDisplay = document.getElementById('speedDisplay');
-    speedSlider.value = speechRate;
-    speedDisplay.textContent = speechRate.toFixed(2) + 'x';
+    buzzBtn.addEventListener('click', () => {
+        onBuzz();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        nextQuestion();
+    });
+
+    repeatBtn.addEventListener('click', () => {
+        repeatQuestion();
+    });
 
     speedSlider.addEventListener('input', () => {
-        speechRate = parseFloat(speedSlider.value);
-        speedDisplay.textContent = speechRate.toFixed(2) + 'x';
+        speedDisplay.textContent = speedSlider.value + 'x';
     });
 
-    // Start reading button
-    const startButton = document.getElementById('startReadingBtn');
-    startButton.addEventListener('click', () => {
-        if (!reading) readCurrentQuestion();
-        startButton.disabled = true;
-    });
+    speedDisplay.textContent = speedSlider.value + 'x';
+    enableButtons(true);
 };
+
+// Also add keyboard buzz (spacebar) support
+window.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' && !e.repeat) {
+        e.preventDefault();
+        onBuzz();
+    }
+});
