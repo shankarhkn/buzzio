@@ -36,6 +36,7 @@
             margin-bottom: 20px;
             min-height: 100px;
             white-space: pre-wrap;
+            /* Initially empty, no full question shown */
         }
 
         #result {
@@ -90,7 +91,8 @@
 <body>
     <div class="container">
         <h1>Buzzio</h1>
-        <div id="questionText">Loading questions...</div>
+        <!-- This will progressively show words as spoken sentence by sentence -->
+        <div id="questionText"></div>
         <div id="result"></div>
 
         <div class="controls">
