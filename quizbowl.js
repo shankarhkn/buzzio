@@ -71,31 +71,29 @@ function onBuzz() {
     stopSpeaking();
 
     recognition = startRecognition();
-    if (!recognition) return;
+    if (!recognition) return; // <-- return early if null
 
     const resultElem = document.getElementById('result');
     if (resultElem) resultElem.textContent = 'Listening for your answer...';
 
-    // Only set event handlers if recognition is valid
-    if (recognition) {
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
-            handleAnswer(transcript);
-        };
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        handleAnswer(transcript);
+    };
 
-        recognition.onerror = (event) => {
-            if (resultElem) resultElem.textContent = 'Speech recognition error: ' + event.error;
-        };
+    recognition.onerror = (event) => {
+        if (resultElem) resultElem.textContent = 'Speech recognition error: ' + event.error;
+    };
 
-        recognition.onend = () => {
-            if (resultElem && resultElem.textContent === 'Listening for your answer...') {
-                resultElem.textContent = 'No answer detected. Try buzzing again.';
-            }
-        };
+    recognition.onend = () => {
+        if (resultElem && resultElem.textContent === 'Listening for your answer...') {
+            resultElem.textContent = 'No answer detected. Try buzzing again.';
+        }
+    };
 
-        recognition.start();
-    }
+    recognition.start();
 }
+  
 
 function handleAnswer(answerText) {
     if (recognition) recognition.stop();
