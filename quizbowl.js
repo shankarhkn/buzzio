@@ -141,9 +141,10 @@ window.onload = async () => {
         document.getElementById('questionText').textContent = 'No questions loaded.';
         return;
     }
-    showQuestion(currentIndex);
-    readCurrentQuestion();
 
+    showQuestion(currentIndex);
+
+    // Wait for interaction before speaking
     document.getElementById('nextBtn').addEventListener('click', () => {
         nextQuestion();
     });
@@ -151,4 +152,14 @@ window.onload = async () => {
     document.getElementById('repeatBtn').addEventListener('click', () => {
         if (!reading) readCurrentQuestion();
     });
+
+    // Add a "Start Reading" button to trigger TTS
+    const startButton = document.createElement('button');
+    startButton.textContent = "Start Reading";
+    startButton.style.marginTop = "20px";
+    startButton.onclick = () => {
+        readCurrentQuestion();
+        startButton.remove();
+    };
+    document.querySelector('.controls').appendChild(startButton);
 };
