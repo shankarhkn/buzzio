@@ -30,6 +30,7 @@ function speakWithSync(text, onEnd) {
 
     const utterance = new SpeechSynthesisUtterance();
     utterance.lang = 'en-US';
+    utterance.rate = 2.0; // ← Make it faster (default is 1.0; max ~2.0)
 
     const showNextWord = () => {
         if (index >= words.length) {
@@ -51,6 +52,7 @@ function speakWithSync(text, onEnd) {
     reading = true;
     showNextWord();
 }
+  
 
 function stopSpeaking() {
     if ('speechSynthesis' in window && speechSynthesis.speaking) {
