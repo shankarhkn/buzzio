@@ -25,42 +25,51 @@ const speedDisplay = document.getElementById('speedDisplay');
 const metaElem = document.getElementById('metadata'); // new element to show metadata
 
 async function loadPacket(url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('Failed to load packet');
-        const text = await response.text();
+    const response = await fetch(url);
+    const text = await response.text();
 
-        // Extract metadata from the top lines (assuming 4 lines starting with "Category:", "Year:", etc.)
-        const metaLines = text.split('\n').slice(0, 10);
-        metaLines.forEach(line => {
-            if (line.toLowerCase().startsWith('category:')) category = line.split(':')[1].trim();
-            else if (line.toLowerCase().startsWith('year:')) year = line.split(':')[1].trim();
-            else if (line.toLowerCase().startsWith('level:')) level = line.split(':')[1].trim();
-            else if (line.toLowerCase().startsWith('round:')) round = line.split(':')[1].trim();
-        });
+    // Parse metadata
+    let category = '', year = '', level = '', round = '';
+    const metaLines = text.split(/\r?\n/).slice(0, 10);
+    metaLines.forEach(line => {
+        if (line.toLowerCase().startsWith('category:')) category = line.split(':')[1].trim();
+        else if (line.toLowerCase().startsWith('year:')) year = line.split(':')[1].trim();
+        else if (line.toLowerCase().startsWith('level:')) level = line.split(':')[1].trim();
+        else if (line.toLowerCase().startsWith('round:')) round = line.split(':')[1].trim();
+    });
 
-        // Show metadata immediately
-        updateMetadataDisplay();
+    // Extract all question blocks separated by ***
+    const rawQuestions = text.split('***').map(s => s.trim()).filter(s => s.length > 0);
 
-        // Split questions by ***
-        const rawQuestions = text.split('***');
+    // Parse each question block
+    const parsedQuestions = rawQuestions.map(raw => {
+        // Split lines for each block
+        const lines = raw.split(/\r?\n/);
 
-        const parsedQuestions = rawQuestions.map(raw => {
-            // Find Question: and Answer: lines
-            const questionMatch = raw.match(/Question:\s*([\s\S]*?)\nAnswer:/i);
-            const answerMatch = raw.match(/Answer:\s*([\s\S]*)/i);
+        // Find line starting with ANSWER:
+        const answerIndex = lines.findIndex(line => line.toUpperCase().startsWith('ANSWER:'));
 
-            const questionText = questionMatch ? questionMatch[1].trim().replace(/\n/g, ' ') : '';
-            const answer = answerMatch ? answerMatch[1].trim() : '';
+        if (answerIndex === -1) {
+            // No answer line found, skip
+            return null;
+        }
 
-            return { questionText, answer };
-        }).filter(q => q.questionText.length > 0);
+        // Question lines: from start to answerIndex - 1
+        const questionLines = lines.slice(0, answerIndex);
 
-        return parsedQuestions;
-    } catch (error) {
-        alert('Error loading packet: ' + error.message);
-        return [];
-    }
+        // Join question lines, remove leading question number if present (like "(1)")
+        let questionText = questionLines.join(' ').replace(/^\(\d+\)\s*/, '').trim();
+
+        // Answer lines: from answerIndex to end
+        const answerText = lines.slice(answerIndex)[0].replace(/^ANSWER:\s*/i, '').trim();
+
+        return {
+            questionText,
+            answer: answerText
+        };
+    }).filter(q => q !== null);
+
+    return { category, year, level, round, questions: parsedQuestions };
 }
 
 function updateMetadataDisplay() {
@@ -271,18 +280,32 @@ function repeatQuestion() {
         resultElem.textContent = '';
     }
 }
-
 window.onload = async () => {
-    questions = await loadPacket('packet.txt');
+    // Load packet data (including metadata and questions)
+    const packetData = await loadPacket('packet.txt');
+
+    // Show metadata in the UI
+    document.getElementById('category').textContent = packetData.category || 'Unknown';
+    document.getElementById('year').textContent = packetData.year || 'Unknown';
+    document.getElementById('level').textContent = packetData.level || 'Unknown';
+    document.getElementById('round').textContent = packetData.round || 'Unknown';
+
+    // Get questions array from packet data
+    questions = packetData.questions || [];
+
     if (questions.length === 0) {
         questionElem.textContent = 'No questions loaded.';
         enableButtons(false);
         return;
     }
+
+    // Shuffle questions
     shuffleArray(questions);
 
+    // Reset UI for the first question
     resetUIForNewQuestion();
 
+    // Button event listeners
     startReadingBtn.addEventListener('click', () => {
         if (!reading) {
             readCurrentQuestion();
@@ -309,6 +332,7 @@ window.onload = async () => {
     speedDisplay.textContent = speedSlider.value + 'x';
     enableButtons(true);
 };
+  
 
 window.addEventListener('keydown', (e) => {
     if (e.code === 'Space' && !e.repeat) {
