@@ -1,75 +1,107 @@
-(1) This man became the head of the Peabody Museum of National History after a donation of
-$100,000 from his uncle George Peabody. This person named several genera, including the (+)
-Diplodocus, Stegosaurus, and the Triceratops. This man had an intense rivalry with Edward Drinker
-Cope, with whom he competed against during an event sometimes referred to as the (*) "Great
-Dinosaur Rush." For the points, name this prominent paleontologist at Yale College who engaged in the Bone
-Wars.
-ANSWER: Othniel Marsh (or Othniel Charles Marsh)
+(1) This man became the head of the Peabody Museum of National History after a donation of $100,000 from his uncle George Peabody. This person named several genera, including the (+) Diplodocus, Stegosaurus, and the Triceratops. This man had an intense rivalry with Edward Drinker Cope, with whom he competed against during an event sometimes referred to as the (*) "Great Dinosaur Rush." For the points, name this prominent paleontologist at Yale College who engaged in the Bone Wars.
+ANSWER: Othniel Marsh; Othniel Charles Marsh
 ***
-(2) All Thompson seedless grapes in California vineyards are sprayed with one of these
-compounds at fruit set in order to increase grape size. Ent-kaurenes are diterpenoids that serve as a
-precursor to these (+) hormones. These proteins were discovered in 1926 by Eichi Kurosawa by
-studying rice that was afflicted with (*) foolish seedling disease. For the points, name this class of plant
-hormones that, while they are not auxins, cause stems to elongate as well as contribute to seed germination
-and growth.
-ANSWER: Gibberellins (accept GAs, prompt on "Diterpenoids" before mention)
+(2) All Thompson seedless grapes in California vineyards are sprayed with one of these compounds at fruit set in order to increase grape size. Ent-kaurenes are diterpenoids that serve as a precursor to these (+) hormones. These proteins were discovered in 1926 by Eichi Kurosawa by studying rice that was afflicted with (*) foolish seedling disease. For the points, name this class of plant hormones that, while they are not auxins, cause stems to elongate as well as contribute to seed germination and growth.
+ANSWER: Gibberellins; GAs
 ***
-(3) Casuarina bark was used in attempts to treat this disease. Though this disease, whose name
-means "trembling," stopped being spread in the 1960s, the last deaths only occurred in the early
-2000s given its long incubation period. This disease most affected women and children due to local (+) funerary practices. This illness, once common among the Fore people, began with a case of
-sporadic (*) Creutzfeldt–Jakob disease. For the points, name this prion disease spread in Papua New Guinea via cannibalism of the brain.
-ANSWER: Kuru (prompt on “Transmissible Spongiform Encephalopathy” or “TSE” or “Creutzfeldt-Jakob disease” or “CJD” before mentioned)
+(3) Casuarina bark was used in attempts to treat this disease. Though this disease, whose name means "trembling," stopped being spread in the 1960s, the last deaths only occurred in the early 2000s given its long incubation period. This disease most affected women and children due to local (+) funerary practices. This illness, once common among the Fore people, began with a case of sporadic (*) Creutzfeldt–Jakob disease. For the points, name this prion disease spread in Papua New Guinea via cannibalism of the brain.
+ANSWER: Kuru; Transmissible Spongiform Encephalopathy; TSE; Creutzfeldt-Jakob disease; CJD
 ***
-(4) The Held–Hou Model envisioned these phenomena in the absence of turbulence, and their
-existence was confirmed by radiosondes. These phenomena interact with similar ones named for
-William Ferrel to create a (+) windless, arid area known as the horse latitudes around 30 degrees
-from the Equator. These phenomena rise in the intertropical convergence zone, and contribute to the
-(*) subtropical jet. For the points, name these circulation patterns which involve the rising of air from the
-Equator.
-ANSWER: Hadley Cells (or Hadley Circulation)
+(4) The Held–Hou Model envisioned these phenomena in the absence of turbulence, and their existence was confirmed by radiosondes. These phenomena interact with similar ones named for William Ferrel to create a (+) windless, arid area known as the horse latitudes around 30 degrees from the Equator. These phenomena rise in the intertropical convergence zone, and contribute to the (*) subtropical jet. For the points, name these circulation patterns which involve the rising of air from the Equator.
+ANSWER: Hadley Cells; Hadley Circulation
 ***
-(5) Parietal cells lining this organ secrete intrinsic factor, a protein crucial for the absorption of
-vitamin B12. The upper, dome-shaped portion of this organ is called the (+) fundus, and it usually
-appears as an air-filled space on X-ray images. Peptic ulcers affecting the wall of this organ may be
-caused by (*) Helicobacter pylori infection and their perforation is a life-threatening condition. For the
-points, name this muscular sac which produces hydrochloric acid and digests food.
+(5) Parietal cells lining this organ secrete intrinsic factor, a protein crucial for the absorption of vitamin B12. The upper, dome-shaped portion of this organ is called the (+) fundus, and it usually appears as an air-filled space on X-ray images. Peptic ulcers affecting the wall of this organ may be caused by (*) Helicobacter pylori infection and their perforation is a life-threatening condition. For the points, name this muscular sac which produces hydrochloric acid and digests food.
 ANSWER: Stomach
 ***
-(6) An AJHG journal entry analyzed MSY data to find that it would be "a good fit to the present
-data" if this individual inhabited "central-northwest Africa". The sixty million base pairs of a
-namesake entity belonging to this being has a lower (+) mutation rate than a type of a DNA used to
-study this being's counterpart. The extinction of paternal lineages can affect the holder of this title of
-which Mitochondrial Eve is the (*) matrilineal counterpart. For the points, give this term for the most
-recent common male ancestor from whom all living humans are descended.
-ANSWER: Y-chromosomal (or chromosome) Adam (or Y-chromosomal most recent common
-ancestor; accept answers indicating most recent common male ancestor of humans before "recent" is
-read and prompt after; prompt on "Adam")
+(6) An AJHG journal entry analyzed MSY data to find that it would be "a good fit to the present data" if this individual inhabited "central-northwest Africa". The sixty million base pairs of a namesake entity belonging to this being has a lower (+) mutation rate than a type of a DNA used to study this being's counterpart. The extinction of paternal lineages can affect the holder of this title of which Mitochondrial Eve is the (*) matrilineal counterpart. For the points, give this term for the most recent common male ancestor from whom all living humans are descended.
+ANSWER: Y-chromosomal Adam; Y-chromosomal most recent common ancestor; most recent common male ancestor of humans; Adam
 ***
-(7) The use of this compound to preserve wheat resulted in a mass poisoning in rural Iraq in 1971.
-This compound was released by the Showa Denko company in Niigata, which resulted in mass ataxia.
-A Chisso Corporation (+) wastewater disposal program resulted in the release of this compound into
-local food sources, causing Minamata disease. This byproduct of ethanal production dangerously
-bioaccumulates in aquatic ecosystems at the top of the (*) food chain. For the points, name this extremely
-toxic ionic compound, the primary source of mercury poisoning in humans.
-ANSWER: Methylmercury (do not accept or prompt on "mercury")
+(7) The use of this compound to preserve wheat resulted in a mass poisoning in rural Iraq in 1971. This compound was released by the Showa Denko company in Niigata, which resulted in mass ataxia. A Chisso Corporation (+) wastewater disposal program resulted in the release of this compound into local food sources, causing Minamata disease. This byproduct of ethanal production dangerously bioaccumulates in aquatic ecosystems at the top of the (*) food chain. For the points, name this extremely toxic ionic compound, the primary source of mercury poisoning in humans.
+ANSWER: Methylmercury
 ***
-(8) These proteins contain a central "selectivity filter" and can be blocked by tetrodotoxins
-derived from puffer fish. Examples of these proteins include the glutamate-binding (+) NMDA and
-AMPA receptors that help mediate neuroplasticity. One of these proteins called Na-sub-x can sense
-the amount of sodium in the blood. These proteins come in (*) "ligand-gated" and "voltage-gated"
-subtypes, which open and close to depolarize neurons during an action potential. For the points, name these
-proteins that allow charged atoms like potassium to cross the cell membrane.
-ANSWER: Ion Channels (accept specific subtypes; accept Sodium Channels; accept Potassium Channels;
-accept Calcium Channels; accept Ionotropic receptors; prompt on "Channels" or "Membrane Proteins" or
-"Transmembrane Proteins" or "Receptors")
+(8) These proteins contain a central "selectivity filter" and can be blocked by tetrodotoxins derived from puffer fish. Examples of these proteins include the glutamate-binding (+) NMDA and AMPA receptors that help mediate neuroplasticity. One of these proteins called Na-sub-x can sense the amount of sodium in the blood. These proteins come in (*) "ligand-gated" and "voltage-gated" subtypes, which open and close to depolarize neurons during an action potential. For the points, name these proteins that allow charged atoms like potassium to cross the cell membrane.
+ANSWER: Ion Channels; Sodium Channels; Potassium Channels; Calcium Channels; Ionotropic receptors; Channels; Membrane Proteins; Transmembrane Proteins; Receptors
 ***
-(9) This phenomenon is especially present on Jan Mayen, a Norwegian Island which benefits from the Gulf Stream. This phenomenon, a macroscopic manifestation of thermal inertia, explains why the (+) autumnal equinox is typically warmer than the vernal equinox and why San Francisco's recordhigh temperature was recorded in September. (*) For the points, name this phenomenon where the onset of the hottest and coldest temperatures in a given year is delayed beyond June or January.
-ANSWER: Seasonal Lag (accept clear-knowledge equivalents)
+(9) This phenomenon is especially present on Jan Mayen, a Norwegian Island which benefits from the Gulf Stream. This phenomenon, a macroscopic manifestation of thermal inertia, explains why the (+) autumnal equinox is typically warmer than the vernal equinox and why San Francisco's record-high temperature was recorded in September. (*) For the points, name this phenomenon where the onset of the hottest and coldest temperatures in a given year is delayed beyond June or January.
+ANSWER: Seasonal Lag
 ***
-(10) In 2012, Retter and Heller published an article titled for reviving the idea of these objects as
-“small bangs”. These objects were first proposed by Igor Nivokov in 1964, called the maximally
-extended version of the (+) Schwarzschild metric. Supermassive objects at the centers of galaxies are
-thought to create these other objects according to the Einstein-Rosen bridge. (*) For the points, name
-these regions of spacetime where nothing can enter, but matter and light can escape, causing Stephen
-Hawking to consider them the opposite of black holes.
+(10) In 2012, Retter and Heller published an article titled for reviving the idea of these objects as “small bangs”. These objects were first proposed by Igor Nivokov in 1964, called the maximally extended version of the (+) Schwarzschild metric. Supermassive objects at the centers of galaxies are thought to create these other objects according to the Einstein-Rosen bridge. (*) For the points, name these regions of spacetime where nothing can enter, but matter and light can escape, causing Stephen Hawking to consider them the opposite of black holes.
 ANSWER: White Holes
+***
+(11) The dome-shaped portion of this membrane, which rises into the neck, is called the cupula and it is innervated by the phrenic and the intercostal nerves. This membrane is composed of simple squamous (+) epithelium, and it consists of two layers: visceral and parietal. The recesses of this membrane provide flexibility for changes in (*) lung volume during breathing. For the points, name this membrane that envelops the lungs and lines the thoracic cavity.
+ANSWER: Pleura; Pulmonary Pleurae; Pleural Membrane
+***
+(12) A form of this equation with the constant 6.1 is used to dose patients using bicarbonate therapy. The Charlot equation is used in place of this equation when (+) auto-ionization is nonnegligible. This equation can be used to calculate the isoelectric point of an amino acid, and it only applies for (*) polyprotic solutions if their pKa values differ by at least 2. For the points, name this equation used to calculate the pH of a solution containing a weak acid and its conjugate base, which is often applied to buffers.
+ANSWER: Henderson-Hasselbach Equation
+***
+(13) Although the mechanism of this substance is unknown, it may be described by the “smell and avoid” and “bewilderment” hypotheses. Applying this substance immediately after sunscreen is discouraged because it lowers the SPF effectiveness by up to 30%. Unlike its main alternative (+) icaridin, this substance possesses causes the skin it is applied to to feel greasy. Citronella oil is a common (*) natural alternative to this substance. For the points, name this pesticide used in most commercially available bug sprays, known by a four-letter acronym.
+ANSWER: DEET; Diethyltoluamide
+***
+(14) In a paper, this man declared, "we find no vestige of a beginning - no prospect of an end." Sites explored by this scientist included Jedburgh and Siccar Point and consist of locations where two different types of rocks meet, showing the difference between new and old rocks. (+) Charles Lyell popularized this man's ideas, which were expounded in the Theory of the Earth. The uniformitarianism principle was promoted by, (*) for the points, what Scottish scientist and "Father of Modern Geology?"
+ANSWER: James Hutton
+***
+(15) One of these substances named for Jules Freund is composed of inactivated and dried mycobacteria, which stimulates TNF production. Toll-like receptor agonists act as these substances by promoting the (+) innate response. These substances also include liposomes, which encapsulate and deliver antigens, and (*) aluminum salts that are particularly effective for inactivating toxins. For the points, name these substances added to vaccines to enhance and modulate the immune response.
+ANSWER: Immunologic Adjuvants
+***
+(16) This man’s “surface” was presented as a counterexample to Joseph Alfred Serret’s method of determining the minima and maxima of a function. A set of statements named for this man includes four that describe the (+) equality relation, and one that places zero within a set represented as a capital N. This man discovered the first known space-filling (*) curve. For the points, name this Italian logician, the namesake of the axioms used to define the natural numbers.
+ANSWER: Giuseppe Peano; Peano Surface; Peano Axioms
+***
+(17) The energy of these particles emitted from an isotope is related by the Geiger-Nuttall rule. The first discovered nuclear reaction involved adding one of these particles to nitrogen to produce oxygen and a (+) proton. A stream of these particles was fired at gold foil but were deflected, refuting the plum pudding model and giving evidence for the (*) atomic nucleus. For the points, what particles that contain two protons and two neutrons are formed by radioactive decay?
+ANSWER: Alpha particle; Alpha ray; Alpha radiation
+***
+(18) The second version of this project featured a "fast buffer" and stages called "Advanced Control, Delayed Control, and Interplay." When Sputnik was launched in 1957, one device from this project was used to (+) calculate the ephemeris of the Soviet satellite's orbit. This project grew from a draft of the EDVAC program and the (*) JOHNNIAC machine, and a copy of its first instance was called ORDVAC. For the points, identify this supercomputer project of a namesake Midwestern university at Urbana-Champaign.
+ANSWER: ILLIAC; Illinois Automatic Computer
+***
+(19) This process is described by the Wright-Fisher model, a stochastic model which can describe how it causes fixation of a novel neutral allele. This process is the mechanism behind Motoo Kimura’s (+) neutral theory. The bottleneck and founder effects are specific examples of this more general process, which drives evolutionary change along with (*) natural selection. For the points, name this evolutionary process, the change in allele frequency between generations due to random chance.
+ANSWER: Genetic Drift
+***
+(20) In one example of this reaction type, an amine is treated with excess methyl iodide, then silver oxide, which forms two alkene products. Using potassium tert-butoxide as a bulky (+) base in this reaction type favors formation of the Hofmann product over the more-substituted Zaitsev product. Applying heat will promote this type of reaction instead of an (*) SN1 or SN2 substitution reaction. For the points, name this type of reaction that removes two substituents from a molecule, which occurs through E1 or E2 mechanisms.
+ANSWER: Elimination reaction; Hofmann Elimination; E1; E2
+***
+(21) To explain this phenomenon, its namesake assumed a constant eddy viscosity and explained the existence of a spiral. Fridtjof Nansen observed this phenomenon when he saw ice moving in a way explained by the (+) Coriolis effect. To satisfy the principle of mass conservation, this effect leads to suction and pumping effects called upwelling and downwelling. A (*) Swedish oceanographer discovered, for the points, what effect of wind-driven ocean currents, in which the water column moves at an angle to the wind?
+ANSWER: Ekman Transport; Ekman Spiral
+***
+(22) This process occurs in a body with a frequency proportional to the product of the gyromagnetic ratio and the magnetic field strength applied to the body. The Thomas form of this process is used in special relativity to correct spin motion calculations. When a body experiences (+) torque, it also experiences the gyroscopic kind of this phenomenon. This phenomenon's Larmor variant occurs in protons and electrons and is essential to (*) nuclear magnetic resonance spectroscopy. Nutation is the combined short-term effect of, for the points, what steady periodic change of a rotating body such as a wobbling top?
+ANSWER: Precession
+***
+(23) One of these objects is returned by the “calloc” and “malloc” functions in C. A Computer Pioneer Award was given to Harold Lawson for his 1964 invention of these objects. A type of these objects that are susceptible to causing crashes is its (+) "dangling" variety, and these objects are "swizzled" when they are converted to handles. (*) Dereferencing these objects is a process in C-like languages in which a value's location is revealed. For the points, name these objects in computer programming that store memory addresses.
+ANSWER: Pointers
+***
+(24) This animal is the only species in the genus Arctictis and is considered an omnivore, but not a predator. It's not a primate, but this animal is mostly arboreal, dwelling in tall forests in its native southern and southeastern Asia, and uses its (+) prehensile tail for balance and communication. The musk glands of this animal produce a scent that’s been described as similar to popcorn. (*) For the points, name this animal that is also known as the bearcat.
+ANSWER: Binturong; Bearcat
+***
+(25) Compounds with this molecular geometry can display crossover between high spin and low spin states. Compounds with this geometry can be distorted by the Jahn-Teller effect. (+) EDTA forms a metal-coordination complex with this geometry, because it is a hexadentate chelator [[KEE-layter]]. Removing one group from this geometry produces either a (*) square pyramidal or trigonal bipyramidal complex. For the points, name this molecular geometry in which a central atom is surrounded by six evenly spaced groups.
+ANSWER: Octahedral Geometry
+***
+(26) Differences in this quantity for left- and right-polarized light are measured during circular dichroism spectroscopy. Values of this quantity at 260 and 280 (+) nanometers are used to measure DNA and protein concentrations. For a given path length, this quantity varies directly with a substance's (*) concentration according to Beer's law. The inverse of transmittance is, for the points, what quantity symbolized A, which measures how much light of a certain wavelength is taken up by a sample?
+ANSWER: Absorbance; A
+***
+(27) The product of the lengths of one of these shapes is related in Ptolemy's theorem, which he used to create the astronomical table of chords, while the area of this type of shape is given by (+) Brahmagupta's formula. Euclid showed a defining property of these shapes in a theorem stating that the sums of opposite angles are (*) supplementary, and the diagonals of this shape satisfy the intersecting chords theorem. For the points, name this type of four-sided shape, whose vertices lie on a circumscribed circle.
+ANSWER: Cyclic Quadrilateral; Inscribed Quadrilateral; Concyclic Quadrilateral; Chordal Quadrilateral
+***
+(28) This man was arrested when he gave a toast "To Louis Philippe" with a dagger on top of his cup. This man introduced finite fields and constructed the general linear group over a prime field. This man may have died in a (+) duel at age 20, and the theory introduced by this man allowed proofs for the impossibility of doubling the cube and trisecting angles. (*) For the points, name this French mathematician who coined the term "group" and studied solving polynomials in abstract algebra.
+ANSWER: Évariste Galois; Galois Theory
+***
+(29) Addition of these structures begins when CPSF recruits Cstf to a cleavage site. The eukaryotic initiation factor 4G binds to this structure and makes a loop by joining it to the five-prime guanosine (+) cap. This sequence assists in the export from the nucleus to the cytoplasm is added to the (*) three-prime end of a transcript to prevent its degradation. For the points, name this sequence of adenine nucleotides that is enzymatically added to mRNA during the process of polyadenylation.
+ANSWER: Poly-A tail; Polyadenylation
+***
+(30) This man wrote the "Extraction of the Jewish Era", a study of the Hebrew calendar, and he created the first table of tangents. Robert of Chester and Gerard of Cremona translated one of this man's textbooks into (+) Latin, which was created with the support of Caliph al-Ma'mun. A work by this man discusses "reduction" and "balancing" of equations. This man's name was later corrupted into the word (*) "algorithm". For the points, name this Persian mathematician from Baghdad who studied algebra.
+ANSWER: Muhammad ibn Musa al-Khwarizmi
+***
+(31) This law, whose point charge equation form was derived by Oliver Heaviside, is used to calculate velocity caused by vortex lines in aerodynamics. This law should be replaced by Jefimenko's equations when (+) magnetostatics is not applicable, and this law can be used to derive Gauss's law for magnetism and Ampere's Law. Defined as a line integral multiplied by a factor of permeability of free space over four pi, (*) this is, for the points, what law relating electric current to the generated magnetic field, which is named for two Frenchmen?
+ANSWER: Biot-Savart Law
+***
+(32) In the transesophageal type of this technique, the transducer is passed through the upper gastrointestinal tract for closer imaging of structures like the interatrial septum or the left (+) atrial appendage. This non-invasive imaging technique can help diagnose and manage conditions that include infective endocarditis, aortic aneurysm, or valve disease. (*) For the points, name this diagnostic technique that uses Doppler or standard ultrasounds to generate real-time images of the heart.
+ANSWER: Echocardiogram; Echocardiography; Cardiac Ultrasound; Cardiac Echo; Transesophageal Echocardiography; Echo
+***
+(33) The matrix version of these laws is used to prove the optical theorem and the radiation pattern of acoustic sources. These laws define the relationships between the (+) inward and outward travelling wave components of electromagnetic fields, and can be used to calculate the reflection coefficient at the interface between two media. For the points, name these laws in electromagnetics that dictate how wave amplitudes sum at boundaries.
+ANSWER: Boundary Conditions; Electromagnetic Boundary Conditions; Electromagnetic Laws; Reflection-Transmission Laws
+***
+(34) This region features an Eocene transgression recorded by the London Clay and is the namesake of the "sequence stratigraphy" concept. The types of these regions range from *passive* to *active* depending on plate tectonics. Their formations may be classified as rift, flexural, or (*) foreland types. Examples of these regions include the Mississippi Delta and the Nile Delta. For the points, name these regions found at the mouths of rivers, where sediment accumulates.
+ANSWER: Deltas; River Deltas
+***
+(35) These animals are the only rodents that are born with their eyes open and fully furred. They have large orange incisors, and the majority of them inhabit the savanna grasslands and forests of southern Africa. These animals, such as the naked mole-rat, exhibit eusocial behavior similar to that of (+) bees and ants. For the points, name these subterranean rodents known for their longevity and cancer resistance.
+ANSWER: African mole-rats; Naked mole-rats; Bathyergidae
+***
+(36) This concept was demonstrated by the Stern-Gerlach experiment and involves a quantum number with possible values of +1/2 and -1/2 for electrons. The Pauli exclusion principle states that no two of these can occupy the same quantum state simultaneously. This intrinsic property of particles is a form of (+) angular momentum not arising from orbital motion. For the points, name this fundamental quantum property of electrons.
+ANSWER: Spin; Electron Spin
