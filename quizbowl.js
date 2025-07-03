@@ -133,6 +133,23 @@ window.addEventListener('keydown', (e) => {
         onBuzz();
     }
 });
+recognition.onerror = (event) => {
+  console.error('Speech recognition error:', event.error);
+  alert(`Speech recognition error: ${event.error}. Try Chrome Incognito and ensure mic access is allowed.`);
+};
+
+recognition.onaudiostart = () => {
+  console.log('Audio capturing started.');
+};
+recognition.onaudioend = () => {
+  console.log('Audio capturing ended.');
+};
+recognition.onstart = () => {
+  console.log('Recognition started');
+};
+recognition.onend = () => {
+  console.log('Recognition ended');
+};
 
 // Button event listeners
 window.onload = async () => {
