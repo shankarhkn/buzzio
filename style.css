@@ -1,130 +1,69 @@
-/* Reset and base styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9fafb;
-    color: #111827;
-    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f7fa;
+    color: #222;
+    margin: 0;
+    padding: 20px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 40px 20px;
+    align-items: center;
+    min-height: 100vh;
 }
 
-/* Container */
 .container {
     max-width: 700px;
     width: 100%;
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
-    transition: all 0.3s ease-in-out;
+    background: white;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
     text-align: center;
 }
 
-/* Title */
 h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 24px;
-}
-
-/* Question Text */
-#questionText {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    min-height: 120px;
-    margin-bottom: 24px;
-    word-wrap: break-word;
-}
-
-/* Result message */
-#result {
-    font-size: 1.1rem;
-    min-height: 40px;
     margin-bottom: 20px;
+    font-size: 2em;
     font-weight: 600;
-    transition: color 0.2s ease;
 }
 
-.correct {
-    color: #16a34a;
+.question {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    min-height: 100px;
+    text-align: left;
+    line-height: 1.6;
 }
 
-.incorrect {
-    color: #dc2626;
+.result {
+    font-size: 1.1em;
+    margin-top: 20px;
+    min-height: 50px;
+    color: #333;
+    font-weight: bold;
 }
 
-.listening {
-    color: #f59e0b;
+.controls {
+    margin-top: 25px;
 }
 
-.warning {
-    color: #d97706;
-}
-
-.error {
-    color: #b91c1c;
-}
-
-/* Buttons */
 button {
-    background-color: #2563eb;
-    color: white;
+    background-color: #007bff;
     border: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-size: 1rem;
-    margin: 0 8px;
-    margin-top: 10px;
+    padding: 12px 25px;
+    color: white;
+    font-size: 1em;
+    border-radius: 5px;
+    margin: 0 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #1e40af;
+    background-color: #0056b3;
 }
 
-.controls {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-}
-
-/* Word-by-word sync display */
-#questionText span {
-    opacity: 0.15;
-    transition: opacity 0.1s ease;
-}
-
-#questionText span.visible {
-    opacity: 1;
-    color: #1d4ed8;
-    font-weight: 600;
-}
-
-/* Optional: fade-in animation */
-.fade-in {
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.instructions {
+    margin-top: 30px;
+    font-style: italic;
+    color: #666;
 }
